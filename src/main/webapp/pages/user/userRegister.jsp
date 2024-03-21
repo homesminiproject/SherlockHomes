@@ -195,8 +195,18 @@ function registerFunction() {
     });
 }
 	
-	
-	
+document.addEventListener("DOMContentLoaded", function() {
+    var agreeCheckbox = document.getElementById("agree");
+    var submitButton = document.querySelector(".btn-signup");
+
+    // 체크박스 상태 변화 시 이벤트 처리
+    agreeCheckbox.addEventListener("change", function() {
+        submitButton.disabled = !this.checked; // 체크박스가 체크되어 있지 않으면 버튼을 비활성화
+    });
+
+    // 페이지 로드 시 초기 설정
+    submitButton.disabled = !agreeCheckbox.checked; // 체크박스의 초기 상태에 따라 버튼을 초기화
+});
 	
 	</script>
 </head>
@@ -236,8 +246,7 @@ function registerFunction() {
         <div class="form-group">
             <input type="text" class="form-control" id="name" name="name" placeholder="이름" required>
         </div>
-<div class="form-group">
-    <label for="phone">전화번호</label>
+
 <div class="phone-input-group">
     <input type="tel" class="form-control phone-input" id="phone1" name="phone1" placeholder="010" pattern="[0-9]{3}" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
     <span class="dash">－</span>
@@ -261,8 +270,8 @@ function registerFunction() {
             </select>
         </div>
         <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="agree">
-            <label class="form-check-label text-muted" for="agree">이용약관 및 개인정보 수집/이용동의</label>
+            <input type="checkbox" class="form-check-input" id="agree" >
+            <label class="form-check-label text-muted" for="agree" >이용약관 및 개인정보 수집/이용동의</label>
     </div>
         <button type="submit" class="btn btn-primary btn-block btn-signup">가입하기</button>
     </form>

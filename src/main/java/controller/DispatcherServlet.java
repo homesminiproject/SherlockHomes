@@ -48,7 +48,6 @@ public class DispatcherServlet extends HttpServlet {
 			UsersDTO user = dao.getUser(id);//id를 USER DAO로 넘겨줘서 처리하게 할거임
 			
 			HttpSession session = request.getSession();
-			System.out.println(user.getAccountlock());
 			
 			if(user != null && user.getAccountlock() == 1) {
 		        // 계정이 잠긴 경우의 처리
@@ -91,7 +90,7 @@ public class DispatcherServlet extends HttpServlet {
 		        writer.close();
 		    
 		
-		}
+				}
 			}
 		}else if(PATH.equals("/membership.do")) {
 			System.out.println("회원가입 처리");
@@ -101,9 +100,12 @@ public class DispatcherServlet extends HttpServlet {
 			String pw1 = request.getParameter("pw1");
 			String pw2 = request.getParameter("pw2");
 			String name = request.getParameter("name");
-			 String phone = request.getParameter("phone");
-			    String birthStr  = request.getParameter("birth");
-			    int birth = Integer.parseInt(birthStr);
+			String phone1 = request.getParameter("phone1");
+			String phone2 = request.getParameter("phone2");
+			String phone3 = request.getParameter("phone3");
+			String phone = phone1 + phone2 + phone3;
+			String birthStr  = request.getParameter("birth");
+			int birth = Integer.parseInt(birthStr);
 			String region = request.getParameter("region");
 			
 			String zipcode = request.getParameter("zipcode");
