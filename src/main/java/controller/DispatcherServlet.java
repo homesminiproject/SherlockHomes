@@ -165,7 +165,7 @@ public class DispatcherServlet extends HttpServlet {
 	
 			response.getWriter().write(user.registerCheck(id) + "");
 	
-//	    }else if(PATH.equals("/logout.do")) {
+	    }else if(PATH.equals("/logout.do")) {
 //			System.out.println("로그아웃 처리");
 //			
 //			HttpSession session = request.getSession();
