@@ -1,3 +1,6 @@
+<%@page import="DTO.NoticeDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,20 +25,7 @@
 	color: white;
 }
 	</style>
-	<script>
-		function popup() {
-		  var screenWidth = window.screen.width;
-		    var screenHeight = window.screen.height;
-		    var popupWidth = 600;
-		    var popupHeight = 700;
-		    var left = (screenWidth - popupWidth) / 2;
-		    var top = (screenHeight - popupHeight) / 2;
-
-		    // Open the popup window
-		    window.open('http://localhost:8080/SherlockHomes/pages/general/noticeUpdate.jsp', 'Edit', 'width=600,height=800,top=' + top + ',left=' + left);
-		}
 	
-	</script>
 </head>
 <body>
   <div class="container-scroller">
@@ -68,7 +58,7 @@
 							<div class="row" style="padding-left: 20px">
 								<div class="card card-margin search-form">
 									<div class="card-body p-0">
-										<form id="search-form">
+										<form action="getNoticeList.do" method="post" id="search-form">
 											<div class="row">
 												<div class="col-12">
 													<div class="row no-gutters">
@@ -105,50 +95,36 @@
 									</div>
 								</div>
 							</div>
-
+<% NoticeDAO noticeDAO = new NoticeDAO(); 
+List<NoticeDTO> noticeList = noticeDAO.getNoticeAll(new NoticeDTO());
+	
+%>
 							<div class="row-lg-12" id="boardBox">
 								<table class="table" id="article-table">
 									<thead>
 										<tr>
 											<th class="hashtag col-1"><a>번호</a></th>
-											<th class="title col-5"><a>제목</a></th>
-											<th class="user-id col-1"><a>작성자</a></th>
+											<th class="title col-4"><a>제목</a></th>
 											<th class="created-at col-1"><a>작성일</a></th>
 											<th class="created-at col-1"><a>수정일</a></th>
 											<th class="created-at col-1"><a>수정|삭제</a></th>
 										</tr>
 									</thead>
 									<tbody>
+									<% for(NoticeDTO notice : noticeList) {%>
 										<tr>
-											<td class="hashtag">1</td>
-											<td class="title"><a>전세사기 없는</a></td>
-											<td class="user-id">관리자</td>
-											<td class="created-at"><time>2024-03-13</time></td>
-											<td class="created-at"><time>2024-03-17</time></td>
-											<td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/noticeUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
+											<td class="hashtag"><%= notice.getN_no()%></td>
+											<td class="title"><%= notice.getTitle() %></td>
+											<td class="created-at"><%= notice.getRegDate() %></td>
+											<td class="created-at"><%= notice.getUpdateDate() %></td>
+											
+											<td class="created-at">
+											<form action="getNotice.do" method="post"><a href="http://localhost:8080/SherlockHomes/pages/general/noticeUpdate.jsp"><i
+													class="mdi mdi-pencil menu-icon"></i></a></form> | <a href="#"><i
 													class="mdi mdi-delete-empty menu-icon"></i></a></td>
+										
 										</tr>
-										<tr>
-											<td class="hashtag">1</td>
-											<td class="title"><a>전세사기 없는</a></td>
-											<td class="user-id">관리자</td>
-											<td class="created-at"><time>2024-03-13</time></td>
-											<td class="created-at"><time>2024-03-17</time></td>
-											<td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/noticeUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
-										</tr>
-										<tr>
-											<td class="hashtag">1</td>
-											<td class="title"><a>전세사기 없는</a></td>
-											<td class="user-id">관리자</td>
-											<td class="created-at"><time>2024-03-13</time></td>
-											<td class="created-at"><time>2024-03-17</time></td>
-											<td class="created-at"><a href="#"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="http://localhost:8080/SherlockHomes/pages/general/noticeUpdate.jsp"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
-										</tr>
+										<% } %>
 									</tbody>
 								</table>
 							</div>
@@ -161,7 +137,8 @@
 										<li class="page-item"><a class="page-link" href="#">Next</a></li>
 									</ul>
 									<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-										<a class="btn btn-primary me-md-2" role="button" id="writeBtn">글쓰기</a>
+										<input type="button" value="글쓰기" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" 
+										style="width:20rem; margin:0 auto;" onclick="location.href='noticeInsert.jsp'">
 									</div>
 								</nav>
 							</div>

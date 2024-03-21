@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,9 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DAO.BoardDAO;
+import DAO.NoticeDAO;
 import DAO.UsersDAO;
-import DTO.BoardDTO;
+import DTO.NoticeDTO;
 import DTO.UsersDTO;
 
 /**
@@ -191,89 +192,85 @@ public class DispatcherServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/user/userLogin.jsp");
 			dispatcher.forward(request, response);	
 			
-		}else if(PATH.equals("/insertBoard.do")) {
-			System.out.println("글 등록 처리");
+		}
+		
+		//공지사항 Notice 처리 -승연
+	    else if(PATH.equals("/insertNotice.do")) {
+			System.out.println("공지사항 등록 처리");
 			
 			String title  = request.getParameter("title");
-			String writer = request.getParameter("writer");
 			String content = request.getParameter("content");
 			
-			BoardDTO dto = new BoardDTO();
+			NoticeDTO dto = new NoticeDTO();
 			dto.setTitle(title);
-			dto.setWriter(writer);
 			dto.setContent(content);
 			
-			BoardDAO dao = new BoardDAO();
-			dao.insertBoard(dto);
+			NoticeDAO dao = new NoticeDAO();
+			dao.insertNotice(dto);
 			
-			request.getRequestDispatcher("/getBoardList.do")
+			request.getRequestDispatcher("/getNoticeList.do")
 		    .forward(request, response);	
 			
-			
-			
-			
-		}else if(PATH.equals("/updateBoard.do")) {
-			System.out.println("글 수정 처리");
+		}else if(PATH.equals("/updateNotice.do")) {
+			System.out.println("공지사항 수정 처리");
 			
 			String title  = request.getParameter("title");
-			int seq = Integer.parseInt(request.getParameter("seq"));
+			int n_no = Integer.parseInt(request.getParameter("n_no"));
 			String content = request.getParameter("content");
-////			String writer = request.getParameter("writer");
+			Date updateDate = request.getParameter("updateDate");
 			
-			BoardDTO dto = new BoardDTO();
+			NoticeDTO dto = new NoticeDTO();
 			dto.setTitle(title);
 			dto.setContent(content);
-//			dto.setWriter(writer);
-			dto.setSeq(seq);
+			dto.setUpdateDate(updateDate);
+			dto.setN_no(n_no);
 			
-			BoardDAO dao = new BoardDAO();
-			dao.insertBoard(dto);
+			NoticeDAO dao = new NoticeDAO();
+			dao.insertNotice(dto);
 			
 			//업데이트 후에는 글 목록으로 이동
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/getBoardList.do");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/getNoticeList.do");
 			dispatcher.forward(request, response);	
 //		
 			
-		}else if(PATH.equals("/deleteBoard.do")) {
-			System.out.println("글 삭제 처리");
+		}else if(PATH.equals("/deleteNotice.do")) {
+			System.out.println("공지사항 삭제 처리");
 			
-			String seq = request.getParameter("seq");
+			String n_no = request.getParameter("n_no");
 			
 			// 2. DB 연동 처리
-			BoardDTO dto = new BoardDTO();
-			dto.setSeq(Integer.parseInt(seq));
+			NoticeDTO dto = new NoticeDTO();
+			dto.setN_no(Integer.parseInt(n_no));
 			
-			BoardDAO boardDAO = new BoardDAO();
-			boardDAO.deleteBoard(dto);
+			NoticeDAO noticeDAO = new NoticeDAO();
+			noticeDAO.deleteNotice(dto);
 			
 			// 3. 페이지 네비게이션
 			RequestDispatcher dispatcher = 
-				request.getRequestDispatcher("/getBoardList.do");
+				request.getRequestDispatcher("/getNoticeList.do");
 			dispatcher.forward(request, response);
 
-			
-			
-		}else if(PATH.equals("/getBoard.do")) {
+		}else if(PATH.equals("/getNotice.do")) {
 			System.out.println("글 상세 조회 처리");
 			//타이틀 누르면 상세 조회되게
 			
 			//사용자 입력 정보
-			int seq = Integer.parseInt(request.getParameter("seq"));
+			int n_no = Integer.parseInt(request.getParameter("n_no"));
 			
-			BoardDTO dto = new BoardDTO();
-			dto.setSeq(seq);
+			NoticeDTO dto = new NoticeDTO();
+			dto.setN_no(n_no);
 			
-			BoardDAO dao = new BoardDAO();
-			BoardDTO board = dao.getBoard(dto);
+			NoticeDAO dao = new NoticeDAO();
+			NoticeDTO notice = dao.getNotice(dto);
 			
-			request.setAttribute("board", board);
+			request.setAttribute("notice", notice);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/board/getBoard.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/general/noticeUpdate.jsp");
 			dispatcher.forward(request, response);	
 			
 			
-		}else if(PATH.equals("/getBoardList.do")) {
+		}else if(PATH.equals("/getNoticeList.do")) {
 			System.out.println("글 목록 검색 처리");
 			
 			//검색을 사용자가 입력하였을 경우
@@ -295,19 +292,19 @@ public class DispatcherServlet extends HttpServlet {
 			session.setAttribute("keyword", searchKeyword);
 			
 			//db연동 처리
-			BoardDTO dto = new BoardDTO();
+			NoticeDTO dto = new NoticeDTO();
 			dto.setSearchCondition("TITLE");
 			dto.setSearchKeyword("");
 			
 			//db 데이터 가져오기
-			BoardDAO dao = new BoardDAO();
+			NoticeDAO dao = new NoticeDAO();
 			
-			List<BoardDTO> boardList = dao.getBoardList(dto);
+			List<NoticeDTO> noticeList = dao.getNoticeList(dto);
 			//boardList.add(board);를 넘겨 받음
 			
 			//화면 이동
-			request.setAttribute("boardList", boardList);
-			request.getRequestDispatcher("/board/getBoardList.jsp").forward(request, response);
+			request.setAttribute("noticeList", noticeList);
+			request.getRequestDispatcher("/pages/general/noticeUpdate.jsp").forward(request, response);
 			
 			
 //			// 1. 사용자 입력정보 추출
