@@ -48,7 +48,51 @@
     .text-muted {
         font-size: 0.9rem;
     }
+        .phone-input-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .phone-input {
+        flex: 1;
+        margin-right: 5px;
+    }
+
+    .dash {
+        margin: -10px 5px 0;
+        position: relative;
+        top: -5px; /* Adjust this value as needed */
+    }
+    
 </style>
+<script>
+    // Function to limit input to numeric characters only
+    function restrictToNumeric(input) {
+        input.value = input.value.replace(/[^\d]/g, '');
+    }
+
+    // Function to automatically move focus to the next input field when maxlength is reached
+    function moveFocus(input, nextInput) {
+        if (input.value.length >= input.maxLength) {
+            nextInput.focus();
+        }
+    }
+
+    // Add event listeners to the phone number input fields
+    document.getElementById('phone1').addEventListener('input', function () {
+        restrictToNumeric(this);
+        moveFocus(this, document.getElementById('phone2'));
+    });
+
+    document.getElementById('phone2').addEventListener('input', function () {
+        restrictToNumeric(this);
+        moveFocus(this, document.getElementById('phone3'));
+    });
+
+    document.getElementById('phone3').addEventListener('input', function () {
+        restrictToNumeric(this);
+    });
+</script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
@@ -109,45 +153,47 @@
 		
 //비밀번호 확인
 		
-		function passwordCheckFunction(){
-			//jQuery
-			let pw1 =$('#pw1').val();  //value 값 
-			let pw2 =$('#pw2').val();  //value 값 
-			if(pw1 !== pw2){
-					$("#pwText").text("비밀번호가 일치하지 않습니다.")
-			}else{
-				$('#pwText').text('');
-				//$('#pw2').attr('disabled', true); //비활성화(true), 활성화(false)
-			}
-			
-		}	
-	
+function passwordCheckFunction() {
+    let pw1 = $('#pw1').val();
+    let pw2 = $('#pw2').val();
+
+    // Regular expression to validate password format
+    let passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+
+    if (pw1 !== pw2) {
+        $("#pwText").text("비밀번호가 일치하지 않습니다.");
+    } else if (!passwordRegex.test(pw1)) {
+        $("#pwText").text("비밀번호는 8자 이상이며, 영문, 숫자, 특수문자를 모두 포함해야 합니다.");
+    } else {
+        $('#pwText').text('');
+    }
+}
 	
 	//아이디 중복 체크 
 	//외부 자바스크립트로 뺄것
-   function registerFunction(){
-		let id = $('#id').val();
-		//$.ajax({경로, 동기화 여부, 성공하면 할 일})
-		//$.ajax({url:'경로',async:true/false, sussess: function(result){ })
-		
-		
-		
-		$.ajax({
-			type : 'POST',    //전달방식, 경로, 데이터를 넣어 줘야 함
-			url : 'UserRegisterCheck.do',
-			      //파라미터 : 값
-			data : {id:id},
-			success:function(result){
-				  if(result==1){
-					  $('#idText').text('사용할 수 있는 아이디 입니다.');					  
-				  }else{
-					  $('#idText').text('사용할 수 없는 아이디 입니다.');		
-				  }
-			}
-						
-		});
-		
-	}
+function registerFunction() {
+    let id = $('#id').val();
+
+    // Email format validation using regular expression
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(id)) {
+        $('#idText').text('올바른 이메일 형식이 아닙니다.');
+        return; // Exit function if email format is incorrect
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: 'UserRegisterCheck.do',
+        data: { id: id },
+        success: function(result) {
+            if (result == 1) {
+                $('#idText').text('사용할 수 있는 아이디 입니다.');
+            } else {
+                $('#idText').text('사용할 수 없는 아이디 입니다.');
+            }
+        }
+    });
+}
 	
 	
 	
@@ -171,27 +217,39 @@
 
     <h2 class="form-title">일반 회원가입</h2>
     <form action="membership.do" method="post" name="usersMember">
+<div class="form-group">
+    <div class="input-group">
+        <input type="email" class="form-control" id="id" name="id" onkeyup="idCheckFunction()" placeholder="아이디(이메일형식)" required>
+        <div class="input-group-append">
+            <button type="button" class="btn btn-gradient-primary btn-sm" id="overlapCheck" onclick="registerFunction()">중복체크</button>
+        </div>
+    </div>
+    <span id="idText"></span>
+</div>
         <div class="form-group">
-            <input type="email" class="form-control" id="id" name="id" onkeyup="idCheckFunction()" placeholder="아이디(이메일형식)" required>
-             <button type="button" class="btn" id="overlapCheck" onclick="registerFunction()">중복체크</button><br>
-                            <span id="idText"></span>
+            <input type="password" class="form-control" id="pw1" name="pw1" placeholder="비밀번호（８자 이상 특수문자 포함）" required>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" id="pw1" name="pw1" placeholder="비밀번호" required>
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control" id="pw2" name="pw2" onkeyup="passwordCheckFunction()" placeholder="비밀번호 확인" required>
+            <input type="password" class="form-control" id="pw2" name="pw2" onkeyup="passwordCheckFunction()" placeholder="비밀번호 확인（８자 이상 특수문자 포함）" required>
         	<span id="pwText"></span>
         </div>
         <div class="form-group">
             <input type="text" class="form-control" id="name" name="name" placeholder="이름" required>
         </div>
-        <div class="form-group">
-            <input type="tel" class="form-control" id="phone" name="phone" placeholder="전화번호 (- 제외)" required>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="birth" name="birth" placeholder="생일 (주민등록번호 앞번호 6자리)" required>
-        </div>
+<div class="form-group">
+    <label for="phone">전화번호</label>
+<div class="phone-input-group">
+    <input type="tel" class="form-control phone-input" id="phone1" name="phone1" placeholder="010" pattern="[0-9]{3}" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+    <span class="dash">－</span>
+    <input type="tel" class="form-control phone-input" id="phone2" name="phone2" pattern="[0-9]{4}" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+    <span class="dash">-</span>
+    <input type="tel" class="form-control phone-input" id="phone3" name="phone3" pattern="[0-9]{4}" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+</div>
+<div class="form-group">
+    <input type="text" class="form-control" id="birth" name="birth" placeholder="생일 (주민등록번호 앞번호 6자리)" 
+           pattern="[0-9]{1,6}" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+           required>
+</div>
         <div class="form-group">
             <select class="form-control" id="region" name="region">
                 <option selected disabled>선호지역</option>
