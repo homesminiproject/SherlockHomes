@@ -165,165 +165,165 @@ public class DispatcherServlet extends HttpServlet {
 	
 			response.getWriter().write(user.registerCheck(id) + "");
 	
-	    }else if(PATH.equals("/logout.do")) {
-			System.out.println("로그아웃 처리");
-			
-			HttpSession session = request.getSession();
-			session.invalidate();
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/user/userLogin.jsp");
-			dispatcher.forward(request, response);	
-			
-		}else if(PATH.equals("/insertBoard.do")) {
-			System.out.println("글 등록 처리");
-			
-			String title  = request.getParameter("title");
-			String writer = request.getParameter("writer");
-			String content = request.getParameter("content");
-			
-			BoardDTO dto = new BoardDTO();
-			dto.setTitle(title);
-			dto.setWriter(writer);
-			dto.setContent(content);
-			
-			BoardDAO dao = new BoardDAO();
-			dao.insertBoard(dto);
-			
-			request.getRequestDispatcher("/getBoardList.do")
-		    .forward(request, response);	
-			
-			
-			
-			
-		}else if(PATH.equals("/updateBoard.do")) {
-			System.out.println("글 수정 처리");
-			
-			String title  = request.getParameter("title");
-			int seq = Integer.parseInt(request.getParameter("seq"));
-			String content = request.getParameter("content");
-////			String writer = request.getParameter("writer");
-			
-			BoardDTO dto = new BoardDTO();
-			dto.setTitle(title);
-			dto.setContent(content);
-//			dto.setWriter(writer);
-			dto.setSeq(seq);
-			
-			BoardDAO dao = new BoardDAO();
-			dao.insertBoard(dto);
-			
-			//업데이트 후에는 글 목록으로 이동
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/getBoardList.do");
-			dispatcher.forward(request, response);	
-//		
-			
-		}else if(PATH.equals("/deleteBoard.do")) {
-			System.out.println("글 삭제 처리");
-			
-			String seq = request.getParameter("seq");
-			
-			// 2. DB 연동 처리
-			BoardDTO dto = new BoardDTO();
-			dto.setSeq(Integer.parseInt(seq));
-			
-			BoardDAO boardDAO = new BoardDAO();
-			boardDAO.deleteBoard(dto);
-			
-			// 3. 페이지 네비게이션
-			RequestDispatcher dispatcher = 
-				request.getRequestDispatcher("/getBoardList.do");
-			dispatcher.forward(request, response);
-
-			
-			
-		}else if(PATH.equals("/getBoard.do")) {
-			System.out.println("글 상세 조회 처리");
-			//타이틀 누르면 상세 조회되게
-			
-			//사용자 입력 정보
-			int seq = Integer.parseInt(request.getParameter("seq"));
-			
-			BoardDTO dto = new BoardDTO();
-			dto.setSeq(seq);
-			
-			BoardDAO dao = new BoardDAO();
-			BoardDTO board = dao.getBoard(dto);
-			
-			request.setAttribute("board", board);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/board/getBoard.jsp");
-			dispatcher.forward(request, response);	
-			
-			
-		}else if(PATH.equals("/getBoardList.do")) {
-			System.out.println("글 목록 검색 처리");
-			
-			//검색을 사용자가 입력하였을 경우
-			String searchCondition = request.getParameter("searchCondition");//검색과 관련된 부분
-			String searchKeyword = request.getParameter("searchKeyword");
-			
-			//null인지 체크
-			if(searchCondition == null) {
-				searchCondition = "TITLE";
-			}
-			if(searchKeyword == null) {
-				searchKeyword = "";
-			}
-			
-			//세션에 검색 관련 정보 저장
-			HttpSession session = request.getSession();
-			//key, value 값으로 저장된다.
-			session.setAttribute("condition", searchCondition);
-			session.setAttribute("keyword", searchKeyword);
-			
-			//db연동 처리
-			BoardDTO dto = new BoardDTO();
-			dto.setSearchCondition("TITLE");
-			dto.setSearchKeyword("");
-			
-			//db 데이터 가져오기
-			BoardDAO dao = new BoardDAO();
-			
-			List<BoardDTO> boardList = dao.getBoardList(dto);
-			//boardList.add(board);를 넘겨 받음
-			
-			//화면 이동
-			request.setAttribute("boardList", boardList);
-			request.getRequestDispatcher("/board/getBoardList.jsp").forward(request, response);
-			
-			
-//			// 1. 사용자 입력정보 추출
-//			String searchCondition = 
-//				request.getParameter("searchCondition");//제목인지 내용인지 선택하는 창
-//			String searchKeyword = request.getParameter("searchKeyword");//직접 검색해보는 창
+//	    }else if(PATH.equals("/logout.do")) {
+//			System.out.println("로그아웃 처리");
 //			
-//			// Null Check
-//			//넘겨 받은 것이 아무것도 없다면
-//			if(searchCondition == null) {searchCondition = "TITLE";}
-//			if(searchKeyword == null) {searchKeyword = "";}
-//			
-//			// 세션에 검색 관련 정보를 저장한다. 
 //			HttpSession session = request.getSession();
-//			session.setAttribute("condition", searchCondition);
-//			session.setAttribute("keyword", searchKeyword);	
-//
+//			session.invalidate();
+//			
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/user/userLogin.jsp");
+//			dispatcher.forward(request, response);	
+//			
+//		}else if(PATH.equals("/insertBoard.do")) {
+//			System.out.println("글 등록 처리");
+//			
+//			String title  = request.getParameter("title");
+//			String writer = request.getParameter("writer");
+//			String content = request.getParameter("content");
+//			
+//			BoardDTO dto = new BoardDTO();
+//			dto.setTitle(title);
+//			dto.setWriter(writer);
+//			dto.setContent(content);
+//			
+//			BoardDAO dao = new BoardDAO();
+//			dao.insertBoard(dto);
+//			
+//			request.getRequestDispatcher("/getBoardList.do")
+//		    .forward(request, response);	
+//			
+//			
+//			
+//			
+//		}else if(PATH.equals("/updateBoard.do")) {
+//			System.out.println("글 수정 처리");
+//			
+//			String title  = request.getParameter("title");
+//			int seq = Integer.parseInt(request.getParameter("seq"));
+//			String content = request.getParameter("content");
+//////			String writer = request.getParameter("writer");
+//			
+//			BoardDTO dto = new BoardDTO();
+//			dto.setTitle(title);
+//			dto.setContent(content);
+////			dto.setWriter(writer);
+//			dto.setSeq(seq);
+//			
+//			BoardDAO dao = new BoardDAO();
+//			dao.insertBoard(dto);
+//			
+//			//업데이트 후에는 글 목록으로 이동
+//			
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("/getBoardList.do");
+//			dispatcher.forward(request, response);	
+////		
+//			
+//		}else if(PATH.equals("/deleteBoard.do")) {
+//			System.out.println("글 삭제 처리");
+//			
+//			String seq = request.getParameter("seq");
+//			
 //			// 2. DB 연동 처리
+//			BoardDTO dto = new BoardDTO();
+//			dto.setSeq(Integer.parseInt(seq));
+//			
+//			BoardDAO boardDAO = new BoardDAO();
+//			boardDAO.deleteBoard(dto);
+//			
+//			// 3. 페이지 네비게이션
+//			RequestDispatcher dispatcher = 
+//				request.getRequestDispatcher("/getBoardList.do");
+//			dispatcher.forward(request, response);
+//
+//			
+//			
+//		}else if(PATH.equals("/getBoard.do")) {
+//			System.out.println("글 상세 조회 처리");
+//			//타이틀 누르면 상세 조회되게
+//			
+//			//사용자 입력 정보
+//			int seq = Integer.parseInt(request.getParameter("seq"));
+//			
+//			BoardDTO dto = new BoardDTO();
+//			dto.setSeq(seq);
+//			
+//			BoardDAO dao = new BoardDAO();
+//			BoardDTO board = dao.getBoard(dto);
+//			
+//			request.setAttribute("board", board);
+//			
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("/board/getBoard.jsp");
+//			dispatcher.forward(request, response);	
+//			
+//			
+//		}else if(PATH.equals("/getBoardList.do")) {
+//			System.out.println("글 목록 검색 처리");
+//			
+//			//검색을 사용자가 입력하였을 경우
+//			String searchCondition = request.getParameter("searchCondition");//검색과 관련된 부분
+//			String searchKeyword = request.getParameter("searchKeyword");
+//			
+//			//null인지 체크
+//			if(searchCondition == null) {
+//				searchCondition = "TITLE";
+//			}
+//			if(searchKeyword == null) {
+//				searchKeyword = "";
+//			}
+//			
+//			//세션에 검색 관련 정보 저장
+//			HttpSession session = request.getSession();
+//			//key, value 값으로 저장된다.
+//			session.setAttribute("condition", searchCondition);
+//			session.setAttribute("keyword", searchKeyword);
+//			
+//			//db연동 처리
 //			BoardDTO dto = new BoardDTO();
 //			dto.setSearchCondition("TITLE");
 //			dto.setSearchKeyword("");
 //			
+//			//db 데이터 가져오기
 //			BoardDAO dao = new BoardDAO();
-//			List<BoardDTO> boardList = dao.getBoardList(dto);
 //			
-//			// 3. 화면 이동
+//			List<BoardDTO> boardList = dao.getBoardList(dto);
+//			//boardList.add(board);를 넘겨 받음
+//			
+//			//화면 이동
 //			request.setAttribute("boardList", boardList);
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("/board/getBoardList.jsp");
-//			dispatcher.forward(request, response);	
-	
-			
-			
-		}else if(PATH.equals("/loginView.do")) {
+//			request.getRequestDispatcher("/board/getBoardList.jsp").forward(request, response);
+//			
+//			
+////			// 1. 사용자 입력정보 추출
+////			String searchCondition = 
+////				request.getParameter("searchCondition");//제목인지 내용인지 선택하는 창
+////			String searchKeyword = request.getParameter("searchKeyword");//직접 검색해보는 창
+////			
+////			// Null Check
+////			//넘겨 받은 것이 아무것도 없다면
+////			if(searchCondition == null) {searchCondition = "TITLE";}
+////			if(searchKeyword == null) {searchKeyword = "";}
+////			
+////			// 세션에 검색 관련 정보를 저장한다. 
+////			HttpSession session = request.getSession();
+////			session.setAttribute("condition", searchCondition);
+////			session.setAttribute("keyword", searchKeyword);	
+////
+////			// 2. DB 연동 처리
+////			BoardDTO dto = new BoardDTO();
+////			dto.setSearchCondition("TITLE");
+////			dto.setSearchKeyword("");
+////			
+////			BoardDAO dao = new BoardDAO();
+////			List<BoardDTO> boardList = dao.getBoardList(dto);
+////			
+////			// 3. 화면 이동
+////			request.setAttribute("boardList", boardList);
+////			RequestDispatcher dispatcher = request.getRequestDispatcher("/board/getBoardList.jsp");
+////			dispatcher.forward(request, response);	
+//	
+//			
+//			
+//		}else if(PATH.equals("/loginView.do")) {
 			System.out.println("로그인 화면으로 이동");
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/user/userLogin.jsp");
