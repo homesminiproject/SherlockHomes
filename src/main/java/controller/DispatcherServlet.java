@@ -139,20 +139,20 @@ public class DispatcherServlet extends HttpServlet {
 			
 			UsersDAO user = new UsersDAO();
 			int result = user.insertUser(dto);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/user/userLogin.jsp");
+			dispatcher.forward(request, response);	
 			
-			if(result == 1) {
-				request.getSession().setAttribute("messageType","입력 성공 메시지");
-				request.getSession().setAttribute("messageContent","회원 가입 완료");
-				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/loginView.do");
-				dispatcher.forward(request, response);
-			}else {
-				request.getSession().setAttribute("messageType","입력 오류 메시지");
-				request.getSession().setAttribute("messageContent","이미 존재하는 회원입니다.");
-				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/loginView.do");
-				dispatcher.forward(request, response);
-			}
+//			if(result == 1) {
+//				request.getSession().setAttribute("messageType","입력 성공 메시지");
+//				request.getSession().setAttribute("messageContent","회원 가입 완료");
+//				
+//			}else {
+//				request.getSession().setAttribute("messageType","입력 오류 메시지");
+//				request.getSession().setAttribute("messageContent","이미 존재하는 회원입니다.");
+//				
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("/loginView.do");
+//				dispatcher.forward(request, response);
+//			}
 			
 			
 			
@@ -166,7 +166,6 @@ public class DispatcherServlet extends HttpServlet {
 			response.getWriter().write(user.registerCheck(id) + "");
 	
 	    }else if(PATH.equals("/logout.do")) {
-<<<<<<< HEAD
 //			System.out.println("로그아웃 처리");
 //			
 //			HttpSession session = request.getSession();
@@ -184,7 +183,6 @@ public class DispatcherServlet extends HttpServlet {
 //			
 //			BoardDTO dto = new BoardDTO();
 //			dto.setTitle(title);
-=======
 			System.out.println("로그아웃 처리");
 			
 			HttpSession session = request.getSession();
@@ -225,7 +223,6 @@ public class DispatcherServlet extends HttpServlet {
 			BoardDTO dto = new BoardDTO();
 			dto.setTitle(title);
 			dto.setContent(content);
->>>>>>> 53ddb5007e9bc6efcc7376c0b80028732be03305
 //			dto.setWriter(writer);
 			dto.setSeq(seq);
 			
