@@ -24,7 +24,7 @@ import DTO.UsersDTO;
 @WebServlet("*.do") //모든 서블릿을 받은 다음에 이름에 따라서 넘겨준다.
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//먼저 한글 필터 처리 부터 하기   22
+	//먼저 한글 필터 처리 부터 하기   22123
 
     public DispatcherServlet() {
         super();
