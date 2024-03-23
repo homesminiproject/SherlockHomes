@@ -169,7 +169,7 @@ public class NoticeDAO {
 		        	 notice.setN_no(rs.getInt("n_no"));
 		        	 notice.setTitle(rs.getString("title"));
 		        	 notice.setContent(rs.getString("content"));
-		        	 notice.setRegDate(rs.getDate("regDate"));
+		        	 notice.setRegDate(rs.getTimestamp("regDate"));
 		             
 		             noticeList.add(notice);
 		         }         

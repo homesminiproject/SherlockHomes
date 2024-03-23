@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@page import="java.util.List"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -50,20 +53,19 @@
                 <form id="search-form">
                     <div class="row">
                         <div class="col-12">
+                        	<form action="getReportList.do" method="post">
                             <div class="row no-gutters">
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                     <label for="search-type" hidden>검색 유형</label>
-                                    <select class="form-control" id="search-type" name="searchType">
-                                        <option>제목</option>
-                                        <option>본문</option>
-                                        <option>id</option>
-                                        <option>닉네임</option>
+                                    <select class="form-control" id="search-type" name="searchCondition">
+                                        <option value="TITLE">제목</option>
+                                        <option value="STATUS">상태</option>
+                                        <option value="R_TYPE">종류</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-8 col-md-6 col-sm-12 p-0">
                                     <label for="search-value" hidden>검색어</label>
-                                    <input type="text" placeholder="검색어..." class="form-control" id="search-value"
-                                           name="searchValue">
+                                    <input type="text" placeholder="검색어..." class="form-control" name="searchKeyword">
                                 </div>
                                 <div class="col-lg-1 col-md-3 col-sm-12 p-0">
                                     <button type="submit" class="btn btn-base">
@@ -77,6 +79,7 @@
                                     </button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </form>
@@ -100,45 +103,21 @@
             </tr>
             </thead>
             <tbody>
+            <c:forEach items="${reportList}" var="r" varStatus="i">
             <tr>
-            	<td class="hashtag">1</td>
-                <td class="title"><a>허위매물</a></td>
-                <td class="user-id">매물</td>
-                <td class="user-id">1234</td>
-                <td class="user-id">1234</td>
-                <td class="created-at"><time>2024-03-13</time></td>
-                <td class="user-id">완료</td>
-                <td class="user-id">1회</td>
-                <td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/declarationUpdate.jsp"><i
+            	<td class="td1">${r.getR_no()}</td>
+                <td class="td1"><a href="getReport.do?r_no=${r.getR_no()}">${r.getTitle()}</a></td>
+                <td class="td1">${r.getR_type()}</td>
+                <td class="td1">${r.getR_name()}</td>
+                <td class="td1">${r.getWriter()}</td>
+                <td class="td1">${r.getRegDate()}</td>
+                <td class="td1">${r.getStatus()}</td>
+                <td class="td1">${r.getR_count()}</td>
+                <td class="td1"><a href="http://localhost:8080/SherlockHomes/pages/general/reportUpdate.jsp"><i
 													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
 													class="mdi mdi-delete-empty menu-icon"></i></a></td>
             </tr>
-            <tr>
-            	<td class="hashtag">2</td>
-                <td class="title"><a>불량/사기</a></td>
-                <td class="user-id">공인중개사</td>
-                <td class="user-id">aaaa</td>
-                                <td class="user-id">1234</td>
-                <td class="created-at"><time>2024-03-13</time></td>
-                <td class="user-id">대기</td>
-                <td class="user-id">3회</td>
-                <td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/declarationUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
-            </tr>
-            <tr>
-            	<td class="hashtag">3</td>
-                <td class="title"><a>전세사기</a></td>
-                <td class="user-id">매물</td>
-                <td class="user-id">4356</td>
-                                <td class="user-id">1234</td>
-                <td class="created-at"><time>2024-03-13</time></td>
-                <td class="user-id">대기</td>
-                <td class="user-id">5회</td>
-                <td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/declarationUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
-            </tr>
+            </c:forEach>
             </tbody>
         </table>
     </div>

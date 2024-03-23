@@ -2,6 +2,7 @@
 <%@page import="DAO.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,22 +50,19 @@ height:400px;
 				<!-- 오른쪽박스 / 수정 가능한 부분-->
 					<div class="col-12 grid-margin stretch-card" style="height: 650px">
 						<div class="card">
-						<form action="getNotice.do" method="post">
 						<form action="updateNotice.do" method="post">
-						
+						<input type="hidden" name="n_no" value="${notice.getN_no()}" >
 							<div class="row-lg-12" id="boardBox">
 								<table class="table" id="article-table" style="margin-top:2rem;">
 									<tbody>
 										<tr>
 											<td class="hashtag col-10"><input type="text" class="form-control form-control-lg"
-											id="title" name="title"><%= notice.getTitle() %></td>
+											id="title" name="title" value="${notice.getTitle()}">${notice.getTitle()}</td>
 										</tr>
 										<tr>
 											<td class="hashtag col-10"><input type="text" class="form-control form-control-lg"
-											id="content" name="content"><%= notice.getContent() %></td>
+											id="content" name="content" value="${notice.getContent()}">${notice.getContent()}</td>
 										</tr>
-									
-										
 									</tbody>
 								</table>
 							</div>
@@ -73,7 +71,6 @@ height:400px;
 						<div class="mt-3" style="margin:0.5rem auto">
 										<input type="submit" value="수정하기" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:20rem; margin:0 auto;"></input>
 									</div>
-									</form>
 						</div>
 						
 					</div>

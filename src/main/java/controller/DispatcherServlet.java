@@ -15,8 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.NoticeDAO;
+import DAO.ReportDAO;
 import DAO.UsersDAO;
 import DTO.NoticeDTO;
+import DTO.ReportDTO;
 import DTO.UsersDTO;
 
 /**
@@ -208,8 +210,8 @@ public class DispatcherServlet extends HttpServlet {
 			NoticeDAO dao = new NoticeDAO();
 			dao.insertNotice(dto);
 			
-			 request.getRequestDispatcher("/pages/general/notice.jsp")
-	          .forward(request, response);   
+			request.getRequestDispatcher("/pages/general/notice.jsp")
+		    .forward(request, response);  
 
 		}else if(PATH.equals("/updateNotice.do")) {
 			System.out.println("공지사항 수정 처리");
@@ -334,7 +336,83 @@ public class DispatcherServlet extends HttpServlet {
 //			dispatcher.forward(request, response);	
 	
 			
+			/* 신고 서블릿 Report */
+		}else if(PATH.equals("/updateReport.do")) {
+			System.out.println("신고 수정");
 			
+			String status  = request.getParameter("status");
+			int r_no = Integer.parseInt(request.getParameter("r_no"));
+			int r_count = Integer.parseInt(request.getParameter("r_count"));
+			
+			ReportDTO dto = new ReportDTO();
+			dto.setTitle(status);
+			dto.setR_no(r_no);
+			dto.setR_count(r_count);
+			
+			ReportDAO dao = new ReportDAO();
+			dao.updateReport(dto);
+			
+			//업데이트 후에는 글 목록으로 이동
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/general/report.jsp");
+			dispatcher.forward(request, response);	
+//		
+			
+		}else if(PATH.equals("/getReport.do")) {
+			System.out.println("신고 상세 조회 처리");
+			//타이틀 누르면 상세 조회되게
+			
+			//사용자 입력 정보
+			int R_no = Integer.parseInt(request.getParameter("r_no"));
+			
+			ReportDTO dto = new ReportDTO();
+			dto.setR_no(R_no);
+			
+			ReportDAO dao = new ReportDAO();
+			ReportDTO report = dao.getReport(dto);
+			
+			request.setAttribute("report", report);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/general/reportUpdate.jsp");
+			dispatcher.forward(request, response);	
+			
+			
+		}else if(PATH.equals("/getReportList.do")) {
+			System.out.println("신고 목록 검색 처리");
+			
+			//검색을 사용자가 입력하였을 경우
+			String searchCondition = request.getParameter("searchCondition");//검색과 관련된 부분
+			String searchKeyword = request.getParameter("searchKeyword");
+			
+			//null인지 체크
+			if(searchCondition == null) {
+				searchCondition = "TITLE";
+			}
+			if(searchKeyword == null) {
+				searchKeyword = "";
+			}
+			
+			//세션에 검색 관련 정보 저장
+			HttpSession session = request.getSession();
+			//key, value 값으로 저장된다.
+			session.setAttribute("condition", searchCondition);
+			session.setAttribute("keyword", searchKeyword);
+			
+			//db연동 처리
+			ReportDTO dto = new ReportDTO();
+			dto.setSearchCondition("TITLE");
+			dto.setSearchKeyword("");
+			
+			//db 데이터 가져오기
+			ReportDAO dao = new ReportDAO();
+			
+			List<ReportDTO> reportList = dao.getReportList(dto);
+			//boardList.add(board);를 넘겨 받음
+			
+			//화면 이동
+			request.setAttribute("reportList", reportList);
+			request.getRequestDispatcher("/pages/general/report.jsp").forward(request, response);
+		
 		}else if(PATH.equals("/loginView.do")) {
 			System.out.println("로그인 화면으로 이동");
 			

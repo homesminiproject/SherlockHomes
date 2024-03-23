@@ -59,7 +59,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/SherlockHomes/pages/general/declaration.jsp">
+            <a class="nav-link" href="/SherlockHomes/pages/general/report.jsp">
               <span class="menu-title">신고관리</span>
               <i class="mdi mdi-alert-box menu-icon"></i>
             </a>
