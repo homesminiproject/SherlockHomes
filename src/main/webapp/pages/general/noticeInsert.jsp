@@ -9,14 +9,10 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>셜록HOMES</title>
-<!-- plugins:css -->
 <link rel="stylesheet"
 	href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
-<!-- endinject -->
-<!-- inject:css -->
 <link rel="stylesheet" href="/SherlockHomes/css/style.css">
-<!-- endinject -->
 <link rel="shortcut icon" href="/SherlockHomes/images/HOMES.png" />
 <style>
 
@@ -48,14 +44,14 @@ height:400px;
 				<!-- 오른쪽박스 / 수정 가능한 부분-->
 					<div class="col-12 grid-margin stretch-card" style="height: 650px">
 						<div class="card">
+						
 						<form action="insertNotice.do" method="post" >
 							<div class="row-lg-12" id="boardBox">
 								<table class="table" id="article-table" style="margin-top:2rem;">
 									<tbody>
 										<tr>
 											<td class="form-group col-10"><input type="text" class="form-control form-control-lg"
-											id="title"
-											placeholder="공지사항제목"></td>
+											id="title" placeholder="공지사항제목"></td>
 										</tr>
 										<tr>
 											<td class="form-group col-10"><input type="text" class="form-control form-control-lg"
@@ -74,30 +70,16 @@ height:400px;
 					</div>
 				</div>
 
-				<!-- content-wrapper ends -->
-				<!-- partial:partials/_footer.html -->
 				<%@ include file="/pages/layout/footer.jsp"%>
-				<!-- partial -->
 			</div>
-			<!-- main-panel ends -->
 		</div>
-		<!-- page-body-wrapper ends -->
 	</div>
-	<!-- container-scroller -->
 
-	<!-- plugins:js -->
 	<script src="../../vendors/js/vendor.bundle.base.js"></script>
 	<script src="../../vendors/js/vendor.bundle.addons.js"></script>
-	<!-- endinject -->
-	<!-- Plugin js for this page-->
-	<!-- End plugin js for this page-->
-	<!-- inject:js -->
 	<script src="../../js/off-canvas.js"></script>
 	<script src="../../js/misc.js"></script>
-	<!-- endinject -->
-	<!-- Custom js for this page-->
 	<script src="../../js/dashboard.js"></script>
-	<!-- End custom js for this page-->
 </body>
 
 </html>

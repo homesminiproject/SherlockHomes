@@ -28,6 +28,7 @@
 	
 </head>
 <body>
+
   <div class="container-scroller">
        <!-- 상단바 -->
 <%@ include file="/pages/layout/header.jsp" %>
@@ -95,10 +96,7 @@
 									</div>
 								</div>
 							</div>
-<% NoticeDAO noticeDAO = new NoticeDAO(); 
-List<NoticeDTO> noticeList = noticeDAO.getNoticeAll(new NoticeDTO());
-	
-%>
+
 							<div class="row-lg-12" id="boardBox">
 								<table class="table" id="article-table">
 									<thead>
@@ -106,22 +104,25 @@ List<NoticeDTO> noticeList = noticeDAO.getNoticeAll(new NoticeDTO());
 											<th class="hashtag col-1"><a>번호</a></th>
 											<th class="title col-4"><a>제목</a></th>
 											<th class="created-at col-1"><a>작성일</a></th>
-											<th class="created-at col-1"><a>수정일</a></th>
 											<th class="created-at col-1"><a>수정|삭제</a></th>
 										</tr>
 									</thead>
 									<tbody>
+									<% NoticeDAO noticeDAO = new NoticeDAO(); List<NoticeDTO> noticeList = noticeDAO.getNoticeAll(new NoticeDTO());%>
 									<% for(NoticeDTO notice : noticeList) {%>
 										<tr>
-											<td class="hashtag"><%= notice.getN_no()%></td>
+											<td class="no"><%= notice.getN_no()%></td>
 											<td class="title"><%= notice.getTitle() %></td>
-											<td class="created-at"><%= notice.getRegDate() %></td>
-											<td class="created-at"><%= notice.getUpdateDate() %></td>
+											<td class="date"><%= notice.getRegDate() %></td>
 											
 											<td class="created-at">
-											<form action="getNotice.do" method="post"><a href="http://localhost:8080/SherlockHomes/pages/general/noticeUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a></form> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
+										
+											<input type="hidden" name="updateBtn" value=<%=notice.getN_no()%>>
+											<a href="http://localhost:8080/SherlockHomes/pages/general/noticeUpdate.jsp">
+											<i class="mdi mdi-pencil menu-icon"></i></a>| <form action="deleteNotice.do" method="post"><input type="hidden" name="n_no" value=<%= notice.getN_no()%>>
+    <button type="submit">
+													<i class="mdi mdi-delete-empty menu-icon"></i></button></form>
+													</td>
 										
 										</tr>
 										<% } %>

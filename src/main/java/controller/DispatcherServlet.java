@@ -208,21 +208,19 @@ public class DispatcherServlet extends HttpServlet {
 			NoticeDAO dao = new NoticeDAO();
 			dao.insertNotice(dto);
 			
-			request.getRequestDispatcher("/getNoticeList.do")
-		    .forward(request, response);	
-			
+			 request.getRequestDispatcher("/pages/general/notice.jsp")
+	          .forward(request, response);   
+
 		}else if(PATH.equals("/updateNotice.do")) {
 			System.out.println("공지사항 수정 처리");
 			
 			String title  = request.getParameter("title");
 			int n_no = Integer.parseInt(request.getParameter("n_no"));
 			String content = request.getParameter("content");
-			Date updateDate = request.getParameter("updateDate");
 			
 			NoticeDTO dto = new NoticeDTO();
 			dto.setTitle(title);
 			dto.setContent(content);
-			dto.setUpdateDate(updateDate);
 			dto.setN_no(n_no);
 			
 			NoticeDAO dao = new NoticeDAO();
@@ -230,7 +228,7 @@ public class DispatcherServlet extends HttpServlet {
 			
 			//업데이트 후에는 글 목록으로 이동
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/getNoticeList.do");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/general/notice.jsp");
 			dispatcher.forward(request, response);	
 //		
 			
@@ -248,7 +246,7 @@ public class DispatcherServlet extends HttpServlet {
 			
 			// 3. 페이지 네비게이션
 			RequestDispatcher dispatcher = 
-				request.getRequestDispatcher("/getNoticeList.do");
+				request.getRequestDispatcher("/pages/general/notice.jsp");
 			dispatcher.forward(request, response);
 
 		}else if(PATH.equals("/getNotice.do")) {

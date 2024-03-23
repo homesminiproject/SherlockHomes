@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,8 +18,8 @@ public class NoticeDAO {
 	public PreparedStatement pstmt = null;
 	public ResultSet rs = null;
 
-	private String NOTICE_INSERT = "insert into notice(title,content)values(?,?)";
-	private String NOTICE_UPDATE = "update notice set title=? ,content=?, updateDate=? where n_no=?";
+	private String NOTICE_INSERT = "insert into notice(title,content) values(?,?)";
+	private String NOTICE_UPDATE = "update notice set title=? ,content=? where n_no=?";
 	private String NOTICE_DELETE = "delete from notice where n_no=?";
 	private String NOTICE_GET = "select * from notice where n_no=?";
 	private String NOTICE_GETALL = "select * from notice order by n_no desc";
@@ -26,8 +27,7 @@ public class NoticeDAO {
 	 //검색 관련
 	   private String NOTICE_LIST_T ="select * from notice where title like ? order by n_no desc";
 	   private String NOTICE_LIST_C ="select * from notice where content like ? order by n_no desc";
-
-
+	   
 	
 	//글 등록
 	   public void insertNotice(NoticeDTO dto) {
@@ -51,14 +51,12 @@ public class NoticeDAO {
 	   
 	   //글 수정
 	   public void updateNotice(NoticeDTO dto) {
-	      
 	      try {
 	         con = MyDBConnection.getConnection();
 	         pstmt = con.prepareStatement(NOTICE_UPDATE);
 	         pstmt.setString(1,dto.getTitle());
 	         pstmt.setString(2,dto.getContent());
-	         pstmt.setTimestamp(3,(Timestamp) dto.getUpdateDate());
-	         pstmt.setInt(4,dto.getN_no());
+	         pstmt.setInt(3,dto.getN_no());
 	         
 	         pstmt.executeUpdate();
 	      
@@ -106,7 +104,6 @@ public class NoticeDAO {
 	             Notice.setTitle(rs.getString("title"));
 	             Notice.setContent(rs.getString("content"));
 	             Notice.setRegDate(rs.getTimestamp("regDate"));
-	             Notice.setUpdateDate(rs.getTimestamp("updateDate"));         
 	         }         
 	      } catch (SQLException e) {
 	         e.printStackTrace();
@@ -143,7 +140,6 @@ public class NoticeDAO {
 	            notice.setTitle(rs.getString("title"));
 	            notice.setContent(rs.getString("content"));
 	            notice.setRegDate(rs.getTimestamp("regDate"));
-	            notice.setUpdateDate(rs.getTimestamp("updateDate"));
 	             
 	             NoticeList.add(notice);
 	         }         
@@ -173,8 +169,7 @@ public class NoticeDAO {
 		        	 notice.setN_no(rs.getInt("n_no"));
 		        	 notice.setTitle(rs.getString("title"));
 		        	 notice.setContent(rs.getString("content"));
-		        	 notice.setRegDate(rs.getTimestamp("regDate"));
-		        	 notice.setUpdateDate(rs.getTimestamp("updateDate"));
+		        	 notice.setRegDate(rs.getDate("regDate"));
 		             
 		             noticeList.add(notice);
 		         }         

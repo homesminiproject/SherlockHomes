@@ -1,3 +1,5 @@
+<%@page import="DTO.NoticeDTO"%>
+<%@page import="DAO.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,19 +20,7 @@
 <!-- endinject -->
 <link rel="shortcut icon" href="/SherlockHomes/images/HOMES.png" />
 <style>
-#profile{
-	margin: 3rem auto;
-	width:10rem;
-	height:10rem;
-	}
-#leftBox{
-	list-style:none;
-	margin: 0 auto;
-	width:20rem;
-}
-#leftBox>li{
-padding: 0.5rem;
-}
+
 #content{
 height:400px;
 }
@@ -59,28 +49,31 @@ height:400px;
 				<!-- 오른쪽박스 / 수정 가능한 부분-->
 					<div class="col-12 grid-margin stretch-card" style="height: 650px">
 						<div class="card">
+						<form action="getNotice.do" method="post">
+						<form action="updateNotice.do" method="post">
+						
 							<div class="row-lg-12" id="boardBox">
 								<table class="table" id="article-table" style="margin-top:2rem;">
 									<tbody>
 										<tr>
-											<td class="hashtag col-10"><input type="email" class="form-control form-control-lg"
-											id="exampleInputEmail1" onkeyup="idCheckFunction()"
-											placeholder="공지사항제목"></td>
+											<td class="hashtag col-10"><input type="text" class="form-control form-control-lg"
+											id="title" name="title"><%= notice.getTitle() %></td>
 										</tr>
 										<tr>
 											<td class="hashtag col-10"><input type="text" class="form-control form-control-lg"
-											id="content" placeholder="내용"></td>
+											id="content" name="content"><%= notice.getContent() %></td>
 										</tr>
 									
 										
 									</tbody>
 								</table>
 							</div>
+							</form>
 
 						<div class="mt-3" style="margin:0.5rem auto">
-										<a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
-											href="notice.jsp" style="width:20rem;">수정하기</a>
+										<input type="submit" value="수정하기" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:20rem; margin:0 auto;"></input>
 									</div>
+									</form>
 						</div>
 						
 					</div>
