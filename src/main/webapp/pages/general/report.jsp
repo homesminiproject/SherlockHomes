@@ -1,3 +1,5 @@
+<%@page import="DTO.ReportDTO"%>
+<%@page import="DAO.ReportDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -92,7 +94,7 @@
             <thead>
             <tr>
                 <th class="hashtag col-1"><a>번호</a></th>
-                <th class="title col-4"><a>사유</a></th>
+                <th class="title col-3"><a>사유</a></th>
                 <th class="user-id"><a>분류</a></th>
                 <th class="user-id"><a>신고된 매물</a></th>
                 <th class="user-id"><a>신고자</a></th>
@@ -103,21 +105,26 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${reportList}" var="r" varStatus="i">
+            <%
+									ReportDAO reportDAO = new ReportDAO();
+					                List<ReportDTO> reportList = reportDAO.getReportAll(null);
+					                for (ReportDTO report : reportList) {
+    	    			%>
             <tr>
-            	<td class="td1">${r.getR_no()}</td>
-                <td class="td1"><a href="getReport.do?r_no=${r.getR_no()}">${r.getTitle()}</a></td>
-                <td class="td1">${r.getR_type()}</td>
-                <td class="td1">${r.getR_name()}</td>
-                <td class="td1">${r.getWriter()}</td>
-                <td class="td1">${r.getRegDate()}</td>
-                <td class="td1">${r.getStatus()}</td>
-                <td class="td1">${r.getR_count()}</td>
-                <td class="td1"><a href="http://localhost:8080/SherlockHomes/pages/general/reportUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
+            	<td class="td1"><%=report.getR_no()%></td>
+                <td class="td1"><a href="getReport.do?r_no=<%=report.getR_no() %>"><%=report.getTitle() %></a></td>
+                <td class="td1"><%=report.getR_type() %></td>
+                <td class="td1"><%=report.getR_name() %></td>
+                <td class="td1"><%=report.getWriter() %></td>
+                <td class="td1"><%=report.getRegDate() %></td>
+                <td class="td1"><%= report.getStatus() %></td>
+                <td class="td1"><%=report.getR_count() %></td>
+                <td><a href="getReport.do?r_no=<%= report.getR_no() %>"><i
+													class="mdi mdi-pencil menu-icon"></i></a> | <a
+												href="deleteReport.do?r_no=<%= report.getR_no()%>"><i
 													class="mdi mdi-delete-empty menu-icon"></i></a></td>
             </tr>
-            </c:forEach>
+<%} %>
             </tbody>
         </table>
     </div>

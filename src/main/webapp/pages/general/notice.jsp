@@ -1,8 +1,12 @@
+<%@page import="DTO.NoticeDTO"%>
+<%@page import="DAO.NoticeDAO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -61,42 +65,45 @@
 								<div class="card card-margin search-form">
 									<div class="card-body p-0">
 										<div class="row">
-											<div class="col-12">
-												<div class="row no-gutters">
-													<div class="col-lg-3 col-md-3 col-sm-12 p-0">
-														<label for="search-type" hidden>검색 유형</label> <select
-															class="form-control" name="searchCondition">
-															<option>제목</option>
-															<option>내용</option>
-														</select>
-													</div>
-													<div class="col-lg-8 col-md-6 col-sm-12 p-0">
-														<label for="search-value" hidden>검색어</label> <input
-															type="text" placeholder="검색어..." class="form-control"
-															id="search-value" name="searchKeyword">
-													</div>
-													<div class="col-lg-1 col-md-3 col-sm-12 p-0">
-														<button type="submit" class="btn btn-base">
-															<svg xmlns="http://www.w3.org/2000/svg" width="24"
-																height="24" viewBox="0 0 24 24" fill="none"
-																stroke="currentColor" stroke-width="2"
-																stroke-linecap="round" stroke-linejoin="round"
-																class="feather feather-search">
+											<form action="getBoardList.do" method="post">
+												<div class="col-12">
+													<div class="row no-gutters search">
+														<div class="col-lg-3 col-md-3 col-sm-12 p-0">
+															<label for="search-type" hidden>검색 유형</label> <select
+																class="form-control" id="search-type"
+																name="searchCondition">
+																<option value="TITLE">제목</option>
+																<option value="CONTENT">내용</option>
+															</select>
+														</div>
+														<div class="col-lg-8 col-md-6 col-sm-12 p-0">
+															<label for="search-value" hidden>검색어</label> <input
+																type="text" placeholder="검색어..." class="form-control"
+																name="searchKeyword">
+														</div>
+														<div class="col-lg-1 col-md-3 col-sm-12 p-0">
+															<button type="submit" class="btn btn-base">
+																<svg xmlns="http://www.w3.org/2000/svg" width="24"
+																	height="24" viewBox="0 0 24 24" fill="none"
+																	stroke="currentColor" stroke-width="2"
+																	stroke-linecap="round" stroke-linejoin="round"
+																	class="feather feather-search">
                                             <circle cx="11" cy="11"
-																	r="8"></circle>
+																		r="8"></circle>
                                             <line x1="21" y1="21"
-																	x2="16.65" y2="16.65"></line>
+																		x2="16.65" y2="16.65"></line>
                                         </svg>
-														</button>
+															</button>
+														</div>
 													</div>
 												</div>
-											</div>
+											</form>
 										</div>
 									</div>
 								</div>
 							</div>
 
-							<div class="row-lg-12">
+							<div class="row-lg-12" id="boardBox">
 								<table class="table" id="article-table">
 									<thead>
 										<tr>
@@ -107,21 +114,21 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${noticeList}" var="n"  varStatus="i">
-											<tr>
-												<td class="no">${n.getN_no()}</td>
-												<td class="title"><a
-													href="getNotice.do?n_no=${n.getN_no()}">${n.getTitle()}</a></td>
-												<td class="date">${n.getRegDate()}</td>
-
-												<td class="created-at"><a
-													href="getNotice.do?n_no=${n.getN_no()}"> <i
-														class="mdi mdi-pencil menu-icon"></i></a>| <a
-													href="deleteBoard.do?seq=${n.getN_no()}"> <i
-														class="mdi mdi-delete-empty menu-icon"></i></a></td>
-
-											</tr>
-										</c:forEach>
+										<%
+									NoticeDAO noticeDAO = new NoticeDAO();
+					                List<NoticeDTO> noticeList = noticeDAO.getNoticeAll(null);
+					                for (NoticeDTO notice : noticeList) {
+    	    			%>
+										<tr>
+											<td><%= notice.getN_no() %></td>
+											<td><a href="getNotice.do?n_no=<%= notice.getN_no() %>"><%= notice.getTitle() %></a></td>
+											<td><%= notice.getRegDate()%></td>
+											<td><a href="getNotice.do?n_no=<%= notice.getN_no() %>"><i
+													class="mdi mdi-pencil menu-icon"></i></a> | <a
+												href="deleteNotice.do?n_no=<%= notice.getN_no() %>"><i
+													class="mdi mdi-delete-empty menu-icon"></i></a></td>
+										</tr>
+										<% } %>
 									</tbody>
 								</table>
 							</div>

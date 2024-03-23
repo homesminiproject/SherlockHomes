@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -196,7 +195,7 @@ public class DispatcherServlet extends HttpServlet {
 			
 		}
 		
-		//공지사항 Notice 처리 -승연
+		//공지사항 Notice 처리
 	    else if(PATH.equals("/insertNotice.do")) {
 			System.out.println("공지사항 등록 처리");
 			
@@ -210,7 +209,7 @@ public class DispatcherServlet extends HttpServlet {
 			NoticeDAO dao = new NoticeDAO();
 			dao.insertNotice(dto);
 			
-			request.getRequestDispatcher("/pages/general/notice.jsp")
+			request.getRequestDispatcher("/getNoticeList.do")
 		    .forward(request, response);  
 
 		}else if(PATH.equals("/updateNotice.do")) {
@@ -248,11 +247,11 @@ public class DispatcherServlet extends HttpServlet {
 			
 			// 3. 페이지 네비게이션
 			RequestDispatcher dispatcher = 
-				request.getRequestDispatcher("/pages/general/notice.jsp");
+				request.getRequestDispatcher("/getNoticeList.do");
 			dispatcher.forward(request, response);
 
 		}else if(PATH.equals("/getNotice.do")) {
-			System.out.println("글 상세 조회 처리");
+			System.out.println("공지사항 상세 조회 처리");
 			//타이틀 누르면 상세 조회되게
 			
 			//사용자 입력 정보
@@ -271,7 +270,7 @@ public class DispatcherServlet extends HttpServlet {
 			
 			
 		}else if(PATH.equals("/getNoticeList.do")) {
-			System.out.println("글 목록 검색 처리");
+			System.out.println("공지사항 목록 검색 처리");
 			
 			//검색을 사용자가 입력하였을 경우
 			String searchCondition = request.getParameter("searchCondition");//검색과 관련된 부분
@@ -300,11 +299,10 @@ public class DispatcherServlet extends HttpServlet {
 			NoticeDAO dao = new NoticeDAO();
 			
 			List<NoticeDTO> noticeList = dao.getNoticeList(dto);
-			//boardList.add(board);를 넘겨 받음
 			
 			//화면 이동
 			request.setAttribute("noticeList", noticeList);
-			request.getRequestDispatcher("/pages/general/noticeUpdate.jsp").forward(request, response);
+			request.getRequestDispatcher("/pages/general/notice.jsp").forward(request, response);
 			
 			
 //			// 1. 사용자 입력정보 추출
@@ -340,20 +338,17 @@ public class DispatcherServlet extends HttpServlet {
 		}else if(PATH.equals("/updateReport.do")) {
 			System.out.println("신고 수정");
 			
-			String status  = request.getParameter("status");
+			String selectStatus = request.getParameter("selectStatus");
 			int r_no = Integer.parseInt(request.getParameter("r_no"));
-			int r_count = Integer.parseInt(request.getParameter("r_count"));
 			
 			ReportDTO dto = new ReportDTO();
-			dto.setTitle(status);
 			dto.setR_no(r_no);
-			dto.setR_count(r_count);
+			dto.setSelectStatus(selectStatus);
 			
 			ReportDAO dao = new ReportDAO();
 			dao.updateReport(dto);
 			
 			//업데이트 후에는 글 목록으로 이동
-			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/general/report.jsp");
 			dispatcher.forward(request, response);	
 //		

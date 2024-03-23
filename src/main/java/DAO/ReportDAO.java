@@ -15,7 +15,8 @@ public class ReportDAO {
 	public PreparedStatement pstmt = null;
 	public ResultSet rs = null;
 	
-	private String REPORT_UPDATE = "update report set status=? ,r_count=? where r_no=?";
+	private String REPORT_CHECK = "update report set status=? ,r_count=r_count+1 where r_no=?";
+	private String REPORT_RETURN = "update report set status=? where r_no=?";
 	private String REPORT_GET = "select * from report where r_no=?";
 	private String REPORT_GETALL = "select * from report order by r_no desc";
 	
@@ -28,9 +29,14 @@ public class ReportDAO {
 			
 			try {
 				con = MyDBConnection.getConnection();
-				pstmt = con.prepareStatement(REPORT_UPDATE);
-				pstmt.setString(1,dto.getStatus());
-				pstmt.setInt(2,dto.getR_count());
+				
+				if(dto.getSelectStatus().equalsIgnoreCase("CHECK")) {
+					pstmt = con.prepareStatement(REPORT_CHECK);
+				} else if(dto.getSearchCondition().equalsIgnoreCase("RETURN")) {
+					pstmt = con.prepareStatement(REPORT_RETURN);
+				}
+				
+				pstmt.setString(1,"처리 완료");
 				pstmt.setInt(3,dto.getR_no());
 				
 				pstmt.executeUpdate();
@@ -42,6 +48,7 @@ public class ReportDAO {
 			}
 		
 		}
+	   
 	   public ReportDTO getReport(ReportDTO dto) { 
 			// 번호 하나로만 검색하기에 번호를 매개값으로 받아도 되지만
 			// 결과를 이용하기 해서 상세 검색을 표현하기 위해 BoardDTO로 받음

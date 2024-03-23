@@ -47,7 +47,6 @@ height:400px;
 				</div>
 				
 				<div class="row">
-				<!-- 오른쪽박스 / 수정 가능한 부분-->
 					<div class="col-12 grid-margin stretch-card" style="height: 650px">
 						<div class="card">
 						<form action="updateNotice.do" method="post">
@@ -57,11 +56,11 @@ height:400px;
 									<tbody>
 										<tr>
 											<td class="hashtag col-10"><input type="text" class="form-control form-control-lg"
-											id="title" name="title" value="${notice.getTitle()}">${notice.getTitle()}</td>
+											id="title" name="title" value="${notice.getTitle()}"></td>
 										</tr>
 										<tr>
 											<td class="hashtag col-10"><input type="text" class="form-control form-control-lg"
-											id="content" name="content" value="${notice.getContent()}">${notice.getContent()}</td>
+											id="content" name="content" value="${notice.getContent()}"></td>
 										</tr>
 									</tbody>
 								</table>

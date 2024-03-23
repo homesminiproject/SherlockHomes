@@ -13,14 +13,16 @@ public class ReportDTO {
 	private int r_count;
 	private String searchCondition;  // 검색 조건
 	private String searchKeyword; // 검색 키워드
+	private String selectStatus;
 	
 	
 	public ReportDTO() {
 		super();
 	}
 	
+
 	public ReportDTO(int r_no, String title, String writer, Date regDate, String status, String r_type, String r_name,
-			int r_count, String searchCondition, String searchKeyword) {
+			int r_count, String searchCondition, String searchKeyword, String selectStatus) {
 		super();
 		this.r_no = r_no;
 		this.title = title;
@@ -32,7 +34,9 @@ public class ReportDTO {
 		this.r_count = r_count;
 		this.searchCondition = searchCondition;
 		this.searchKeyword = searchKeyword;
+		this.selectStatus = selectStatus;
 	}
+
 
 	public int getR_no() {
 		return r_no;
@@ -134,12 +138,23 @@ public class ReportDTO {
 	}
 
 
+	public String getSelectStatus() {
+		return selectStatus;
+	}
+
+
+	public void setSelectStatus(String selectStatus) {
+		this.selectStatus = selectStatus;
+	}
+
+
 	@Override
 	public String toString() {
 		return "ReportDTO [r_no=" + r_no + ", title=" + title + ", writer=" + writer + ", regDate=" + regDate
 				+ ", status=" + status + ", r_type=" + r_type + ", r_name=" + r_name + ", r_count=" + r_count
-				+ ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + "]";
+				+ ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", selectStatus="
+				+ selectStatus + "]";
 	}
-	
-	
+
+
 }

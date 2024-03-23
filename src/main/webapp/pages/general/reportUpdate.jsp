@@ -52,24 +52,24 @@ white-space:normal;
 										<tr>
 											<td class="title col-3"><input type="email" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
-											placeholder="사유"></td>
+											value="${report.getTitle()}"></td>
 											<td class="writer col-2"><input type="email" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
-											placeholder="신고자"></td>
+											value="${report.getWriter()}"></td>
 											<td class="date col-2"><input type="email" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
-											placeholder="신고일"></td>
+											value="${report.getRegDate()}"></td>
 										</tr>
 										<tr>
 											<td class="title col-3"><input type="email" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
-											placeholder="분류"></td>
+											value="${report.getR_type()}"></td>
 											<td class="writer col-2"><input type="email" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
-											placeholder="신고된 유저 / 매물"></td>
+											value="${report.getR_name()}"></td>
 											<td class="date col-2"><input type="email" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
-											placeholder="누적신고수"></td>
+											value="${report.getR_count()}회"></td>
 										</tr>
 										<tr>
 											<td colspan=3 class="title col-12"><input type="text" class="form-control form-control-lg"
@@ -80,8 +80,8 @@ white-space:normal;
 								</table>
 								<div class="mt-3 text-center" style="margin:0.5rem auto">
 								<ul style="list-style:none; display:flex; justify-content:center;">
-										<li><input type="submit" value="신고 처리하기" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:15rem; margin:0 0.5rem;"></input></li>
-										<li><input type="submit" value="신고 삭제하기" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:15rem; margin:0 0.5rem;"></input></li>
+										<li><button type="submit" name="selectStatus" id="selectStatus" value="check" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:15rem; margin:0 0.5rem;">신고처리</button></li>
+										<li><button type="submit" name="selectStatus" id="selectStatus" value="return" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:15rem; margin:0 0.5rem;">신고반려</button></li>
 									</ul>
 									</div>
 							</div>
