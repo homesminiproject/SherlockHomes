@@ -65,11 +65,12 @@ height:400px;
 									</tbody>
 								</table>
 							</div>
-							</form>
+							
 
 						<div class="mt-3" style="margin:0.5rem auto">
 										<input type="submit" value="수정하기" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:20rem; margin:0 auto;"></input>
 									</div>
+									</form>
 						</div>
 						
 					</div>

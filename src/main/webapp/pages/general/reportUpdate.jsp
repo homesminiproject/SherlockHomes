@@ -78,12 +78,14 @@ white-space:normal;
 										</tr>
 									</tbody>
 								</table>
+								<form action="updateReport.do" method="post">
 								<div class="mt-3 text-center" style="margin:0.5rem auto">
 								<ul style="list-style:none; display:flex; justify-content:center;">
-										<li><button type="submit" name="selectStatus" id="selectStatus" value="check" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:15rem; margin:0 0.5rem;">신고처리</button></li>
-										<li><button type="submit" name="selectStatus" id="selectStatus" value="return" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:15rem; margin:0 0.5rem;">신고반려</button></li>
+										<li><input type="hidden" name="r_no" value="${report.getR_no()}"><button name="selectStatus" id="selectStatus" value="check" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:15rem; margin:0 0.5rem;">신고처리</button></li>
+										<li><input type="hidden" name="r_no" value="${report.getR_no()}"><button name="selectStatus" id="selectStatus" value="return" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:15rem; margin:0 0.5rem;">신고반려</button></li>
 									</ul>
 									</div>
+									</form>
 							</div>
 				</div>
 				</div>

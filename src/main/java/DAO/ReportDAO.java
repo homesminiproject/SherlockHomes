@@ -32,12 +32,12 @@ public class ReportDAO {
 				
 				if(dto.getSelectStatus().equalsIgnoreCase("CHECK")) {
 					pstmt = con.prepareStatement(REPORT_CHECK);
-				} else if(dto.getSearchCondition().equalsIgnoreCase("RETURN")) {
+				} else if(dto.getSelectStatus().equalsIgnoreCase("RETURN")) {
 					pstmt = con.prepareStatement(REPORT_RETURN);
 				}
 				
 				pstmt.setString(1,"처리 완료");
-				pstmt.setInt(3,dto.getR_no());
+				pstmt.setInt(2,dto.getR_no());
 				
 				pstmt.executeUpdate();
 			

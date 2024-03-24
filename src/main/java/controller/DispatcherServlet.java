@@ -225,7 +225,7 @@ public class DispatcherServlet extends HttpServlet {
 			dto.setN_no(n_no);
 			
 			NoticeDAO dao = new NoticeDAO();
-			dao.insertNotice(dto);
+			dao.updateNotice(dto);
 			
 			//업데이트 후에는 글 목록으로 이동
 			
