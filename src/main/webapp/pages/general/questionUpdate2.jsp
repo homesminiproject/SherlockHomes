@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +19,8 @@
 <!-- endinject -->
 <link rel="shortcut icon" href="/SherlockHomes/images/HOMES.png" />
 <style>
-#content{
-height:150px;
+#content {
+	height: 150px;
 }
 </style>
 </head>
@@ -41,58 +42,67 @@ height:150px;
 						</span> 문의 답변
 					</h3>
 				</div>
-				
+
 				<div class="row">
-				<!-- 문의-->
-				<form action="updateQuestion.do" method="post">
-				<input type="hidden" name="q_no" value="${question.getQ_no()}" >
-				<div class="col-12 grid-margin stretch-card" style="height: 300px">
-				<div class="card">
-				<div class="row-lg-12" id="boardBox">
-								<table class="table" id="article-table" style="margin-top:2rem;">
-									<tbody>
-										<tr>
-											<td class="title col-4"><input type="text" class="form-control form-control-lg"
-											id="title" name="title" value="${question.getTitle()}" readonly></td>
-											<td class="writer col-1"><input type="text" class="form-control form-control-lg"
-											id="q_sort" name="q_sort" value="${question.getQ_sort()}" readonly></td>
-											<td class="writer col-1"><input type="text" class="form-control form-control-lg"
-											id="q_writer" name="q_writer" value="${question.getQ_writer()}" readonly></td>
-											<td class="date col-2"><input type="text" class="form-control form-control-lg"
-											id="regDate" name="regDate" value="${question.getRegDate()}" readonly></td>
-										</tr>
-										<tr>
-											<td colspan="4" class="content col-12"><input type="text" class="form-control form-control-lg"
-											id="content" name="content" value="${question.getContent()}" readonly></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-				</div>
-				</div>
-				
-				
-				<!-- 답변-->
+							<form action="updateQuestion.do" method="post">
+								<input type="hidden" name="q_no" value="${question.getQ_no()}">
+					<div class="col-12 grid-margin stretch-card" style="height: 300px">
+						<!-- 문의-->
+						<div class="card">
+								<div class="row-lg-12" id="boardBox">
+									<table class="table" id="article-table"
+										style="margin-top: 2rem;">
+										<tbody>
+											<tr>
+												<td class="col-2"><input type="text"
+													class="form-control form-control-lg" id="q_title"
+													name="q_title" value="${question.getQ_title()}" readonly></td>
+												<td class="col-2"><input type="text"
+													class="form-control form-control-lg" id="q_sort"
+													name="q_sort" value="${question.getQ_sort()}" readonly></td>
+												<td class="col-2"><input type="text"
+													class="form-control form-control-lg" id="q_writer"
+													name="q_writer" value="${question.getQ_writer()}" readonly></td>
+												<td class="col-2"><input type="text"
+													class="form-control form-control-lg" id="regDate"
+													name="regDate" value="${question.getRegDate()}" readonly></td>
+											</tr>
+											<tr>
+												<td colspan="4" class="col-12"><input type="text"
+													class="form-control form-control-lg" id="content"
+													name="content" value="${question.getContent()}" readonly></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+						</div>
+					</div>
+
+
+					<!-- 답변-->
 					<div class="col-12 grid-margin stretch-card" style="height: 300px">
 						<div class="card">
 							<div class="row-lg-12" id="boardBox">
-								<table class="table" id="article-table" style="margin-top:2rem;">
+								<table class="table" id="article-table"
+									style="margin-top: 2rem;">
 									<tbody>
 										<tr>
-											<td class="hashtag col-10"><input type="text" class="form-control form-control-lg"
-											id="reply" name="reply" placeholder="내용" style="height:10rem;"></td>
+											<td class="hashtag col-10"><input type="text"
+												class="form-control form-control-lg" id="reply" name="reply"
+												value="${question.getReply()}" style="height: 10rem;"></td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
-						<div class="mt-3" style="margin:0.5rem auto">
-										<input type="submit" value="답변 등록하기" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:20rem; margin:0 auto;"></input>
-									</div>
+							<div class="mt-3" style="margin: 0.5rem auto">
+								<input type="submit" value="답변 등록하기"
+									class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
+									style="width: 20rem; margin: 0 auto;"></input>
+							</div>
 						</div>
-						
 					</div>
-					</form>
-					
+							</form>
+
 				</div>
 
 				<!-- content-wrapper ends -->

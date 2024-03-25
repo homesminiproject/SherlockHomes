@@ -481,21 +481,21 @@ public class DispatcherServlet extends HttpServlet {
 			request.setAttribute("reportList", reportList);
 			request.getRequestDispatcher("/pages/general/estateList.jsp").forward(request, response);
 		
-		}else if(PATH.equals("/deleteNotice.do")) {
+		}else if(PATH.equals("/deleteEstate.do")) {
 			System.out.println("매물 삭제 처리");
 			
-			String n_no = request.getParameter("n_no");
+			String e_no = request.getParameter("e_no");
 			
 			// 2. DB 연동 처리
-			NoticeDTO dto = new NoticeDTO();
-			dto.setN_no(Integer.parseInt(n_no));
+			EstateDTO dto = new EstateDTO();
+			dto.setE_no(Integer.parseInt(e_no));
 			
-			NoticeDAO noticeDAO = new NoticeDAO();
-			noticeDAO.deleteNotice(dto);
+			EstateDAO estateDAO = new EstateDAO();
+			estateDAO.deleteEstate(dto);
 			
 			// 3. 페이지 네비게이션
 			RequestDispatcher dispatcher = 
-				request.getRequestDispatcher("/getNoticeList.do");
+				request.getRequestDispatcher("/pages/general/estateList.jsp");
 			dispatcher.forward(request, response);
 
 		}else if(PATH.equals("/updateQuestion.do")) {

@@ -104,13 +104,28 @@
             </tr>
             </thead>
 
-<!-- 내용 -->            
+<!-- 내용 -->    
+<% 
+EstateDAO dao = new EstateDAO();
+            // 현재 페이지 번호를 가져오기
+            int currentPage = (request.getParameter("page") != null) ? Integer.parseInt(request.getParameter("page")) : 1;
+            
+            // 전체 데이터 수 가져오기
+            int totalRecords = dao.getTotalRecords(); // 예를 들어, EstateDAO에 getTotalRecords() 메소드를 추가해서 전체 데이터 수를 가져오는 것을 가정합니다.
+            
+            // 페이지당 항목 수
+            int recordsPerPage = 10;
+            
+            // 전체 페이지 수 계산
+            int totalPages = (int) Math.ceil((double) totalRecords / recordsPerPage);
+            
+            // 현재 페이지에 해당하는 데이터 가져오기
+            List<EstateDTO> estateList = dao.getEstatePage(currentPage, recordsPerPage);
+            
+            for (EstateDTO estate : estateList) {
+            %>        
             <tbody>
-            <%
-									EstateDAO estateDAO = new EstateDAO();
-					                List<EstateDTO> estateList = estateDAO.getEstateAll(null);
-					                for (EstateDTO estate : estateList) {
-    	    			%>
+           
             <tr>
             	<td class="hashtag"><%= estate.getE_no() %></td>
                 <td class="title"><a><%= estate.getRoadaddress() %></a></td>
@@ -122,7 +137,7 @@
                 <td class="created-at"><%= estate.getRisk() %></td>
                 <td><a href="getEstate.do?e_no=<%= estate.getE_no() %>"><i
 													class="mdi mdi-pencil menu-icon"></i></a> | <a
-												href="deleteEstate.do?ne_no=<%= estate.getE_no() %>"><i
+												href="deleteEstate.do?e_no=<%= estate.getE_no() %>"><i
 													class="mdi mdi-delete-empty menu-icon"></i></a></td>
             </tr>
             <%} %>

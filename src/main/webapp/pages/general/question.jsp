@@ -108,7 +108,7 @@
     	    			%>
             <tr>
             	<td class="hashtag"><%= question.getQ_no() %></td>
-                <td class="title"><%= question.getQ_title() %></td>
+                <td><a href="getQuestion.do?q_no=<%= question.getQ_no() %>"><%= question.getQ_title() %></a></td>
                 <td class="user-id"><%= question.getQ_sort() %></td>
                 <td class="created-at"><%= question.getQ_writer() %></td>
                 <td class="created-at"><%= question.getRegDate() %></td>

@@ -18,8 +18,12 @@ public class EstateDAO {
 	private String ESTATE_UPDATE = "update estate set p_type=? ,price=? ,area=?, risk=? where e_no=?";
 	private String ESTATE_DELETE = "delete from estate where e_no=?";
 	private String ESTATE_GET = "select * from estate where e_no=?";
-	private String ESTATE_GETALL = "select * from estate order by e_no desc";
-	
+	private String ESTATE_GETALL = "select  * from estate order by e_no desc";
+	private String ESTATE_GANGNAM = "select count(*) from estate_gangnam_gu";
+	private String ESTATE_GANGBUK = "select count(*) from estate_gangbuk_gu";
+	private String ESTATE_GANGSEO = "select count(*) from estate_gangseo_gu";
+	private String ESTATE_COUNT = "select count(*) from estate";
+	private String ESTATE_GET_RANGE = "select * from estate where e_no > ?, e_no <= ?";
 	 //검색 관련
 	   private String ESTATE_LIST_T ="select * from estate where e_type like ? order by e_no desc";
 	   private String ESTATE_LIST_A ="select * from estate where roadaddress like ? order by e_no desc";
@@ -200,5 +204,115 @@ public class EstateDAO {
 		      return estateList;
 		      
 		   }
+	   
+	   public List<EstateDTO> getEstatePage(int currentPage, int recordsPerPage) {
+		    List<EstateDTO> estateList = new ArrayList<>();
+		    
+		    try {
+		        con = MyDBConnection.getConnection();
+		        pstmt = con.prepareStatement(ESTATE_GET_RANGE); // ESTATE_GET_RANGE는 시작 레코드와 끝 레코드를 기반으로 데이터를 가져오는 SQL 쿼리입니다.
+		        pstmt.setInt(1, currentPage*10);
+		        pstmt.setInt(2, recordsPerPage);
+		        rs = pstmt.executeQuery();
+		        
+		        while(rs.next()) {
+		            EstateDTO estate = new EstateDTO();
+		            estate.setE_no(rs.getInt("e_no"));
+		            estate.setPostcode(rs.getInt("postcode"));
+		            estate.setRoadaddress(rs.getString("roadaddress"));
+		            estate.setJibunaddress(rs.getString("jibunaddress"));
+		            estate.setDetailaddress(rs.getString("detailaddress"));
+		            estate.setE_type(rs.getString("e_type"));
+		            estate.setP_type(rs.getString("p_type"));
+		            estate.setPrice(rs.getString("price"));
+		            estate.setE_no(rs.getInt("e_no"));
+		            estate.setEa_name(rs.getString("ea_name"));
+		            estate.setRegDate(rs.getTimestamp("regDate"));
+		            estate.setRisk(rs.getString("risk"));
+		            estate.setArea(rs.getInt("area"));
+		            estate.setRoom(rs.getInt("room"));
+		            estate.setE_date(rs.getString("e_date"));
+		            estate.setMax_floor(rs.getInt("max_floor"));
+		            estate.setE_floor(rs.getInt("e_floor"));
+		            
+		            estateList.add(estate);
+		        }         
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        MyDBConnection.close(rs, pstmt, con);
+		    }
+		   
+		    return estateList;
+		}
+
+
+	   public int getGangNamCount() {
+		   int gangNamCount = 0;
+		   try {
+		         con = MyDBConnection.getConnection();
+		         pstmt = con.prepareStatement(ESTATE_GANGNAM);
+		         rs = pstmt.executeQuery();
+		         if (rs.next()) {
+		             gangNamCount = rs.getInt(1); 
+		         }
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }finally {
+		         MyDBConnection.close(rs, pstmt, con);
+		      }
+		   return gangNamCount;
+	   }
+
+	   public int getGangBukCount() {
+		   int gangBukCount = 0;
+		   try {
+			   con = MyDBConnection.getConnection();
+			   pstmt = con.prepareStatement(ESTATE_GANGBUK);
+			   rs = pstmt.executeQuery();
+			   if (rs.next()) {
+				   gangBukCount = rs.getInt(1); 
+			   }
+		   } catch (SQLException e) {
+			   e.printStackTrace();
+		   }finally {
+			   MyDBConnection.close(rs, pstmt, con);
+		   }
+		   return gangBukCount;
+	   }
+	   
+	   public int getGangSeoCount() {
+		   int gangSeoCount = 0;
+		   try {
+			   con = MyDBConnection.getConnection();
+			   pstmt = con.prepareStatement(ESTATE_GANGSEO);
+			   rs = pstmt.executeQuery();
+			   if (rs.next()) {
+				   gangSeoCount = rs.getInt(1); 
+			   }
+		   } catch (SQLException e) {
+			   e.printStackTrace();
+		   }finally {
+			   MyDBConnection.close(rs, pstmt, con);
+		   }
+		   return gangSeoCount;
+	   }
+
+	   public int getTotalRecords() {
+		   int totalCount = 0;
+		   try {
+			   con = MyDBConnection.getConnection();
+			   pstmt = con.prepareStatement(ESTATE_COUNT);
+			   rs = pstmt.executeQuery();
+			   if (rs.next()) {
+				   totalCount = rs.getInt(1); 
+			   }
+		   } catch (SQLException e) {
+			   e.printStackTrace();
+		   }finally {
+			   MyDBConnection.close(rs, pstmt, con);
+		   }
+		   return totalCount;
+	   }
 		   
 		}
