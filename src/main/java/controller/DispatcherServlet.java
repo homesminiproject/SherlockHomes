@@ -13,10 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DAO.EstateDAO;
 import DAO.NoticeDAO;
+import DAO.QuestionDAO;
 import DAO.ReportDAO;
 import DAO.UsersDAO;
+import DTO.EstateDTO;
 import DTO.NoticeDTO;
+import DTO.QuestionDTO;
 import DTO.ReportDTO;
 import DTO.UsersDTO;
 
@@ -276,14 +280,6 @@ public class DispatcherServlet extends HttpServlet {
 			String searchCondition = request.getParameter("searchCondition");//검색과 관련된 부분
 			String searchKeyword = request.getParameter("searchKeyword");
 			
-			//null인지 체크
-			if(searchCondition == null) {
-				searchCondition = "TITLE";
-			}
-			if(searchKeyword == null) {
-				searchKeyword = "";
-			}
-			
 			//세션에 검색 관련 정보 저장
 			HttpSession session = request.getSession();
 			//key, value 값으로 저장된다.
@@ -408,6 +404,187 @@ public class DispatcherServlet extends HttpServlet {
 			request.setAttribute("reportList", reportList);
 			request.getRequestDispatcher("/pages/general/report.jsp").forward(request, response);
 		
+		}else if(PATH.equals("/updateEstate.do")) {
+			System.out.println("매물 수정");
+			
+			int e_no = Integer.parseInt(request.getParameter("e_no"));
+			
+			String p_type = request.getParameter("p_type");
+			System.out.println(1);
+			String price = request.getParameter("price");
+			System.out.println(2);
+			String areastr = request.getParameter("area");
+			int area = Integer.parseInt(areastr);
+			System.out.println(3);
+			String risk = request.getParameter("risk");
+			System.out.println(4);
+			
+			EstateDTO dto = new EstateDTO();
+			dto.setE_no(e_no);
+			dto.setP_type(p_type);
+			dto.setPrice(price);
+			dto.setArea(area);
+			dto.setRisk(risk);
+			
+			EstateDAO dao = new EstateDAO();
+			dao.updateEstate(dto);
+			
+			//업데이트 후에는 글 목록으로 이동
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/general/estateList.jsp");
+			dispatcher.forward(request, response);	
+//		
+			
+		}else if(PATH.equals("/getEstate.do")) {
+			System.out.println("매물 상세 조회 처리");
+			//타이틀 누르면 상세 조회되게
+			
+			//사용자 입력 정보
+			int E_no = Integer.parseInt(request.getParameter("e_no"));
+			
+			EstateDTO dto = new EstateDTO();
+			dto.setE_no(E_no);
+			
+			EstateDAO dao = new EstateDAO();
+			EstateDTO estate = dao.getEstate(dto);
+			
+			request.setAttribute("estate", estate);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/general/estateUpdate.jsp");
+			dispatcher.forward(request, response);	
+			
+			
+		}else if(PATH.equals("/getEstateList.do")) {
+			System.out.println("매물 검색 처리");
+			
+			//검색을 사용자가 입력하였을 경우
+			String searchCondition = request.getParameter("searchCondition");//검색과 관련된 부분
+			String searchKeyword = request.getParameter("searchKeyword");
+			
+			//세션에 검색 관련 정보 저장
+			HttpSession session = request.getSession();
+			//key, value 값으로 저장된다.
+			session.setAttribute("condition", searchCondition);
+			session.setAttribute("keyword", searchKeyword);
+			
+			//db연동 처리
+			ReportDTO dto = new ReportDTO();
+			dto.setSearchCondition("TITLE");
+			dto.setSearchKeyword("");
+			
+			//db 데이터 가져오기
+			ReportDAO dao = new ReportDAO();
+			
+			List<ReportDTO> reportList = dao.getReportList(dto);
+			//boardList.add(board);를 넘겨 받음
+			
+			//화면 이동
+			request.setAttribute("reportList", reportList);
+			request.getRequestDispatcher("/pages/general/estateList.jsp").forward(request, response);
+		
+		}else if(PATH.equals("/deleteNotice.do")) {
+			System.out.println("매물 삭제 처리");
+			
+			String n_no = request.getParameter("n_no");
+			
+			// 2. DB 연동 처리
+			NoticeDTO dto = new NoticeDTO();
+			dto.setN_no(Integer.parseInt(n_no));
+			
+			NoticeDAO noticeDAO = new NoticeDAO();
+			noticeDAO.deleteNotice(dto);
+			
+			// 3. 페이지 네비게이션
+			RequestDispatcher dispatcher = 
+				request.getRequestDispatcher("/getNoticeList.do");
+			dispatcher.forward(request, response);
+
+		}else if(PATH.equals("/updateQuestion.do")) {
+			System.out.println("문의 수정");
+			
+			int q_no = Integer.parseInt(request.getParameter("q_no"));
+			String reply = request.getParameter("reply");
+			
+			QuestionDTO dto = new QuestionDTO();
+			dto.setQ_no(q_no);
+			dto.setReply(reply);
+			
+			QuestionDAO dao = new QuestionDAO();
+			dao.updateQuestion(dto);
+			
+			//업데이트 후에는 글 목록으로 이동
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/general/question.jsp");
+			dispatcher.forward(request, response);	
+//		
+			
+		}else if(PATH.equals("/getQuestion.do")) {
+			System.out.println("문의 답변 처리");
+			//타이틀 누르면 상세 조회되게
+			
+			//사용자 입력 정보
+			int Q_no = Integer.parseInt(request.getParameter("q_no"));
+			System.out.println(1);
+			
+			QuestionDTO dto = new QuestionDTO();
+			dto.setQ_no(Q_no);
+			System.out.println(Q_no);
+			
+			QuestionDAO dao = new QuestionDAO();
+			QuestionDTO question = dao.getQuestion(dto);
+			System.out.println(3);
+			
+			request.setAttribute("question", question);
+			System.out.println(4);
+			
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/general/questionUpdate2.jsp");
+			dispatcher.forward(request, response);
+			
+		}else if(PATH.equals("/getQuestionList.do")) {
+			System.out.println("문의 검색 처리");
+			
+			//검색을 사용자가 입력하였을 경우
+			String searchCondition = request.getParameter("searchCondition");//검색과 관련된 부분
+			String searchKeyword = request.getParameter("searchKeyword");
+			
+			//세션에 검색 관련 정보 저장
+			HttpSession session = request.getSession();
+			//key, value 값으로 저장된다.
+			session.setAttribute("condition", searchCondition);
+			session.setAttribute("keyword", searchKeyword);
+			
+			//db연동 처리
+			QuestionDTO dto = new QuestionDTO();
+			/*
+			 * dto.setSearchCondition("TITLE"); dto.setSearchKeyword("");
+			 */
+			
+			//db 데이터 가져오기
+			QuestionDAO dao = new QuestionDAO();
+			
+			List<QuestionDTO> questionList = dao.getQuestionList(dto);
+			//boardList.add(board);를 넘겨 받음
+			
+			//화면 이동
+			request.setAttribute("questionList", questionList);
+			request.getRequestDispatcher("/pages/general/question.jsp").forward(request, response);
+		
+		}else if(PATH.equals("/deleteQuestion.do")) {
+			System.out.println("문의 삭제 처리");
+			
+			String q_no = request.getParameter("q_no");
+			
+			// 2. DB 연동 처리
+			QuestionDTO dto = new QuestionDTO();
+			dto.setQ_no(Integer.parseInt(q_no));
+			
+			QuestionDAO questionDAO = new QuestionDAO();
+			questionDAO.deleteQuestion(dto);
+			
+			// 3. 페이지 네비게이션
+			RequestDispatcher dispatcher = 
+				request.getRequestDispatcher("/pages/general/question.jsp");
+			dispatcher.forward(request, response);
+
 		}else if(PATH.equals("/loginView.do")) {
 			System.out.println("로그인 화면으로 이동");
 			

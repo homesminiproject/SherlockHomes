@@ -5,6 +5,7 @@ import java.util.Date;
 public class ReportDTO {
 	private int r_no;
 	private String title;
+	private String content;
 	private String writer;
 	private Date regDate;
 	private String status;
@@ -16,25 +17,14 @@ public class ReportDTO {
 	private String selectStatus;
 	
 	
-	public ReportDTO() {
-		super();
-	}
-	
 
-	public ReportDTO(int r_no, String title, String writer, Date regDate, String status, String r_type, String r_name,
-			int r_count, String searchCondition, String searchKeyword, String selectStatus) {
-		super();
-		this.r_no = r_no;
-		this.title = title;
-		this.writer = writer;
-		this.regDate = regDate;
-		this.status = status;
-		this.r_type = r_type;
-		this.r_name = r_name;
-		this.r_count = r_count;
-		this.searchCondition = searchCondition;
-		this.searchKeyword = searchKeyword;
-		this.selectStatus = selectStatus;
+	public String getContent() {
+		return content;
+	}
+
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 
@@ -150,11 +140,13 @@ public class ReportDTO {
 
 	@Override
 	public String toString() {
-		return "ReportDTO [r_no=" + r_no + ", title=" + title + ", writer=" + writer + ", regDate=" + regDate
-				+ ", status=" + status + ", r_type=" + r_type + ", r_name=" + r_name + ", r_count=" + r_count
-				+ ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", selectStatus="
-				+ selectStatus + "]";
+		return "ReportDTO [r_no=" + r_no + ", title=" + title + ", content=" + content + ", writer=" + writer
+				+ ", regDate=" + regDate + ", status=" + status + ", r_type=" + r_type + ", r_name=" + r_name
+				+ ", r_count=" + r_count + ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword
+				+ ", selectStatus=" + selectStatus + "]";
 	}
+
+
 
 
 }

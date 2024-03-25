@@ -1,3 +1,6 @@
+<%@page import="DTO.EstateDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.EstateDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -57,10 +60,8 @@
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                     <label for="search-type" hidden>검색 유형</label>
                                     <select class="form-control" id="search-type" name="searchType">
-                                        <option>등록번호</option>
                                         <option>주소</option>
-                                        <option>전/월세</option>
-                                        <option>가격</option>
+                                        <option>건물종류</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-8 col-md-6 col-sm-12 p-0">
@@ -105,58 +106,26 @@
 
 <!-- 내용 -->            
             <tbody>
+            <%
+									EstateDAO estateDAO = new EstateDAO();
+					                List<EstateDTO> estateList = estateDAO.getEstateAll(null);
+					                for (EstateDTO estate : estateList) {
+    	    			%>
             <tr>
-            	<td class="hashtag">1111</td>
-                <td class="title"><a>서울시 강남구</a></td>
-                <td class="user-id">오피스텔</td>
-                <td class="user-id">월세</td>
-                <td class="user-id">100/70</td>
-                <td class="created-at">강남지다인공인중개사</td>
-                <td class="created-at"><time>2024-03-13</time></td>
-                <td class="created-at">주의</td>
-                <td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/estateUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
+            	<td class="hashtag"><%= estate.getE_no() %></td>
+                <td class="title"><a><%= estate.getRoadaddress() %></a></td>
+                <td class="user-id"><%= estate.getE_type() %></td>
+                <td class="user-id"><%= estate.getP_type() %></td>
+                <td class="user-id"><%= estate.getPrice() %></td>
+                <td class="created-at"><%= estate.getEa_name() %></td>
+                <td class="created-at"><%= estate.getRegDate() %></td>
+                <td class="created-at"><%= estate.getRisk() %></td>
+                <td><a href="getEstate.do?e_no=<%= estate.getE_no() %>"><i
+													class="mdi mdi-pencil menu-icon"></i></a> | <a
+												href="deleteEstate.do?ne_no=<%= estate.getE_no() %>"><i
 													class="mdi mdi-delete-empty menu-icon"></i></a></td>
             </tr>
-            <tr>
-            	<td class="hashtag">2222</td>
-                <td class="title"><a>서울시 강남구</a></td>
-                <td class="user-id">빌라</td>
-                <td class="user-id">전세</td>
-                <td class="user-id">1억1000</td>
-                <td class="created-at">강남지다인공인중개사</td>
-                <td class="created-at"><time>2024-03-13</time></td>
-                <td class="created-at"><time>위험</time></td> 
-                <td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/estateUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>           	
-            </tr>
-            <tr>
-            	<td class="hashtag">3333</td>
-                <td class="title"><a>서울시 강남구</a></td>
-                <td class="user-id">아파트</td>
-                <td class="user-id">매매</td>
-                <td class="user-id">3억6000</td>
-                <td class="created-at">강남지다인공인중개사</td>
-                <td class="created-at"><time>2024-03-13</time></td>
-                <td class="created-at">안전</td>
-                <td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/estateUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
-            </tr>
-            <tr>
-            	<td class="hashtag">4444</td>
-                <td class="title"><a>서울시 강남구</a></td>
-                <td class="user-id">아파트</td>
-                <td class="user-id">월세</td>
-                <td class="user-id">6000/70</td>
-                <td class="created-at">강남지다인공인중개사</td>
-                <td class="created-at"><time>2024-03-13</time></td>
-                <td class="created-at">거래불가</td>
-                <td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/estateUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
-            </tr>
+            <%} %>
             </tbody>
         </table>
     </div>

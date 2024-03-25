@@ -44,25 +44,26 @@ height:150px;
 				
 				<div class="row">
 				<!-- 문의-->
+				<form action="updateQuestion.do" method="post">
+				<input type="hidden" name="q_no" value="${question.getQ_no()}" >
 				<div class="col-12 grid-margin stretch-card" style="height: 300px">
 				<div class="card">
 				<div class="row-lg-12" id="boardBox">
 								<table class="table" id="article-table" style="margin-top:2rem;">
 									<tbody>
 										<tr>
-											<td class="title col-4"><input type="email" class="form-control form-control-lg"
-											id="exampleInputEmail1" onkeyup="idCheckFunction()"
-											placeholder="문의제목"></td>
-											<td class="writer col-1"><input type="email" class="form-control form-control-lg"
-											id="exampleInputEmail1" onkeyup="idCheckFunction()"
-											placeholder="작성자"></td>
-											<td class="date col-2"><input type="email" class="form-control form-control-lg"
-											id="exampleInputEmail1" onkeyup="idCheckFunction()"
-											placeholder="작성일"></td>
+											<td class="title col-4"><input type="text" class="form-control form-control-lg"
+											id="title" name="title" value="${question.getTitle()}" readonly></td>
+											<td class="writer col-1"><input type="text" class="form-control form-control-lg"
+											id="q_sort" name="q_sort" value="${question.getQ_sort()}" readonly></td>
+											<td class="writer col-1"><input type="text" class="form-control form-control-lg"
+											id="q_writer" name="q_writer" value="${question.getQ_writer()}" readonly></td>
+											<td class="date col-2"><input type="text" class="form-control form-control-lg"
+											id="regDate" name="regDate" value="${question.getRegDate()}" readonly></td>
 										</tr>
 										<tr>
-											<td colspan="3" class="content col-12"><input type="text" class="form-control form-control-lg"
-											id="content" placeholder="내용"></td>
+											<td colspan="4" class="content col-12"><input type="text" class="form-control form-control-lg"
+											id="content" name="content" value="${question.getContent()}" readonly></td>
 										</tr>
 									</tbody>
 								</table>
@@ -70,31 +71,28 @@ height:150px;
 				</div>
 				</div>
 				
+				
 				<!-- 답변-->
-					<div class="col-12 grid-margin stretch-card" style="height: 400px">
+					<div class="col-12 grid-margin stretch-card" style="height: 300px">
 						<div class="card">
 							<div class="row-lg-12" id="boardBox">
 								<table class="table" id="article-table" style="margin-top:2rem;">
 									<tbody>
 										<tr>
-											<td class="hashtag col-10"><input type="email" class="form-control form-control-lg"
-											id="exampleInputEmail1" onkeyup="idCheckFunction()"
-											placeholder="답변 제목"></td>
-										</tr>
-										<tr>
 											<td class="hashtag col-10"><input type="text" class="form-control form-control-lg"
-											id="content" placeholder="내용"></td>
+											id="reply" name="reply" placeholder="내용" style="height:10rem;"></td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 						<div class="mt-3" style="margin:0.5rem auto">
-										<a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
-											href="question.jsp" style="width:20rem;">답변 등록하기</a>
+										<input type="submit" value="답변 등록하기" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:20rem; margin:0 auto;"></input>
 									</div>
 						</div>
 						
 					</div>
+					</form>
+					
 				</div>
 
 				<!-- content-wrapper ends -->

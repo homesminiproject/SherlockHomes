@@ -65,7 +65,7 @@
 								<div class="card card-margin search-form">
 									<div class="card-body p-0">
 										<div class="row">
-											<form action="getBoardList.do" method="post">
+											<form action="getNoticeList.do" method="post">
 												<div class="col-12">
 													<div class="row no-gutters search">
 														<div class="col-lg-3 col-md-3 col-sm-12 p-0">

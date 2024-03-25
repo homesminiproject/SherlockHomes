@@ -52,7 +52,7 @@ public class ReportDAO {
 	   public ReportDTO getReport(ReportDTO dto) { 
 			// 번호 하나로만 검색하기에 번호를 매개값으로 받아도 되지만
 			// 결과를 이용하기 해서 상세 검색을 표현하기 위해 BoardDTO로 받음
-		   ReportDTO board = null;
+		   ReportDTO report = null;
 			
 			try {
 				con = MyDBConnection.getConnection();
@@ -62,22 +62,23 @@ public class ReportDAO {
 				rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
-					board = new ReportDTO();
-				    board.setR_no(rs.getInt("r_no"));
-				    board.setTitle(rs.getString("title"));
-				    board.setWriter(rs.getString("writer"));
-				    board.setRegDate(rs.getTimestamp("regDate"));
-				    board.setStatus(rs.getString("status"));			
-				    board.setR_type(rs.getString("r_type"));			
-				    board.setR_name(rs.getString("r_name"));			
-				    board.setR_count(rs.getInt("r_count"));			
+					report = new ReportDTO();
+					report.setR_no(rs.getInt("r_no"));
+					report.setTitle(rs.getString("title"));
+					report.setTitle(rs.getString("content"));
+					report.setWriter(rs.getString("writer"));
+					report.setRegDate(rs.getTimestamp("regDate"));
+					report.setStatus(rs.getString("status"));			
+					report.setR_type(rs.getString("r_type"));			
+					report.setR_name(rs.getString("r_name"));			
+					report.setR_count(rs.getInt("r_count"));			
 				}			
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}finally {
 				MyDBConnection.close(rs, pstmt, con);
 			}
-			return board;
+			return report;
 		}
 		
 		//글 리스트 검색
@@ -106,6 +107,7 @@ public class ReportDAO {
 					report = new ReportDTO();
 					report.setR_no(rs.getInt("r_no"));
 					report.setTitle(rs.getString("title"));
+					report.setContent(rs.getString("content"));
 					report.setWriter(rs.getString("writer"));
 					report.setRegDate(rs.getTimestamp("regDate"));
 					report.setR_count(rs.getInt("r_count"));	
@@ -140,6 +142,7 @@ public class ReportDAO {
 					report = new ReportDTO();
 					report.setR_no(rs.getInt("r_no"));
 					report.setTitle(rs.getString("title"));
+					report.setContent(rs.getString("content"));
 					report.setWriter(rs.getString("writer"));
 					report.setRegDate(rs.getTimestamp("regDate"));
 					report.setR_count(rs.getInt("r_count"));	

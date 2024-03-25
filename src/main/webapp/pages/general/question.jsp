@@ -1,3 +1,6 @@
+<%@page import="DTO.QuestionDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.QuestionDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -90,6 +93,7 @@
             <tr>
                 <th class="hashtag col-1"><a>번호</a></th>
                 <th class="title col-5"><a>제목</a></th>
+                <th class="created-at col-1"><a>분류</a></th>
                 <th class="user-id col-1"><a>작성자</a></th>
                 <th class="created-at col-2"><a>작성일</a></th>
                 <th class="created-at col-1"><a>답변 여부</a></th>
@@ -97,35 +101,24 @@
             </tr>
             </thead>
             <tbody>
+            <%
+									QuestionDAO questionDAO = new QuestionDAO();
+					                List<QuestionDTO> questionList = questionDAO.getQuestionAll(null);
+					                for (QuestionDTO question : questionList) {
+    	    			%>
             <tr>
-            	<td class="hashtag">1111</td>
-                <td class="title"><a>입금 어떻게 해요?</a></td>
-                <td class="user-id">aaaa</td>
-                <td class="created-at"><time>2024-03-13</time></td>
-                <td class="user-id">완료</td>
-                <td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/questionUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
+            	<td class="hashtag"><%= question.getQ_no() %></td>
+                <td class="title"><%= question.getQ_title() %></td>
+                <td class="user-id"><%= question.getQ_sort() %></td>
+                <td class="created-at"><%= question.getQ_writer() %></td>
+                <td class="created-at"><%= question.getRegDate() %></td>
+                <td class="created-at"><%= question.getReplyornot() %></td>
+                <td><a href="getQuestion.do?q_no=<%= question.getQ_no() %>"><i
+													class="mdi mdi-pencil menu-icon"></i></a> | <a
+												href="deleteQuestion.do?q_no=<%= question.getQ_no() %>"><i
 													class="mdi mdi-delete-empty menu-icon"></i></a></td>
             </tr>
-            <tr>
-            	<td class="hashtag">2222</td>
-                <td class="title"><a>비밀번호 까먹었어요</a></td>
-                <td class="user-id">qqqq</td>
-                <td class="created-at"><time>2024-03-13</time></td>
-                <td class="user-id">대기</td>
-                <td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/questionUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
-            </tr>
-            <tr>
-            	<td class="hashtag">444</td>
-                <td class="title"><a>가장 비싼 지역이 어딘가요?</a></td>
-                <td class="user-id">bbbb</td>
-                <td class="created-at"><time>2024-03-15</time></td>
-                <td class="user-id">완료</td><td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/general/questionUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
-            </tr>
+            <% } %>
             </tbody>
         </table>
     </div>

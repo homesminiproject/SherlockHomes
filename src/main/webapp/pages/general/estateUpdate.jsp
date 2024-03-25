@@ -51,81 +51,118 @@ padding: 0.5rem;
 						</span> 매물 정보수정
 					</h3>
 				</div>
-				
+
+<form action="updateEstate.do" method="post">
+						<input type="hidden" name="e_no" value="${estate.getE_no()}" >				
 				<div class="row">
-				
-				<!-- 왼쪽박스 / readonly / 수정불가-->
-				<div class="col-4 grid-margin stretch-card" style="height: 650px">
+				<!-- 왼쪽위박스 / photo -->
+				<div class="col-4 grid-margin stretch-card" style="height: 250px">
 				<div class="card">
 				<img src="/SherlockHomes/images/HOMES.png" id="profile">
-				<ul id="leftBox">
-					<li>등록번호<br><input type="text" class="form-control form-control-lg"
-											id="ea_no" placeholder="회원번호 들어올곳" readonly></li>
-					<li>주소<input type="text" class="form-control form-control-lg"
-											id="ea_no" placeholder="공인중개사 이름?" readonly></li>
-					<li>작성자<input type="text" class="form-control form-control-lg"
-											id="ea_no" placeholder="사업자번호" readonly></li>
-					<li>작성일<input type="text" class="form-control form-control-lg"
-											id="ea_no" placeholder="사업자번호" readonly></li>
-				</ul>
 				</div>
 				</div>
 				
-				<!-- 오른쪽박스 / 수정 가능한 부분-->
-					<div class="col-7 grid-margin stretch-card" style="height: 650px">
+				<!-- 오른쪽위박스 / content -->
+					<div class="col-7 grid-margin stretch-card" style="height: 250px">
 						<div class="card">
 							<div class="row-lg-12" id="boardBox">
 								<table class="table" id="article-table" style="margin-top:2rem;">
 									<tbody>
 										<tr>
-											<th class="hashtag col-2"><a>종류</a></th>
-											<td class="hashtag col-3"><input type="email" class="form-control form-control-lg"
-											id="exampleInputEmail1" onkeyup="idCheckFunction()"
-											placeholder="오피스텔/아파트/다세대"></td>
+											<td class="hashtag"><input type="text" class="form-control form-control-lg"
+											id="content" name="content" value="${estate.getContent()}" readonly style="height:10rem"></td>
 										</tr>
-										<tr>
-											<th class="hashtag col-2"><a>가격</a></th>
-											<td class="hashtag"><input type="pwd" class="form-control form-control-lg"
-											id="exampleInputpw1" placeholder="전세금/월세 등"></td>
-										</tr>
-										<tr>
-											<th class="hashtag col-2"><a>건물 층수 / 해당층수</a></th>
-											<td class="hashtag"><input type="pwd" class="form-control form-control-lg"
-											id="exampleInputpw1" placeholder="10층 / 2층"></td>
-										</tr>
-										<tr>
-											<th class="hashtag col-2"><a>준공일</a></th>
-											<td class="hashtag"><input type="pwd" class="form-control form-control-lg"
-											id="exampleInputpw1" placeholder="date"></td>
-										</tr>
-										<tr>
-											<th class="hashtag col-2"><a>면적</a></th>
-											<td class="hashtag"><input type="pwd" class="form-control form-control-lg"
-											id="exampleInputpw1" placeholder="20㎡"></td>
-										</tr>
-										<tr>
-											<th class="hashtag col-2"><a>방 개수</a></th>
-											<td class="hashtag"><input type="pwd" class="form-control form-control-lg"
-											id="exampleInputpw1" placeholder="투룸"></td>
-										</tr>
-										<tr>
-											<th class="hashtag col-2"><a>신고 수 / 위험도</a></th>
-											<td class="hashtag"><input type="pwd" class="form-control form-control-lg"
-											id="exampleInputpw1" placeholder="2 / 주의"></td>
-										</tr>
-										
 									</tbody>
 								</table>
 							</div>
-
-						<div class="mt-3" style="margin:0.5rem auto">
-										<a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
-											href="estateList.jsp" style="width:20rem;">수정하기</a>
-									</div>
-						</div>
-						
-					</div>
+							</div>
+							</div>
+							</div>
+							
+				<div class="row">
+				<!-- 왼쪽아래박스 / 수정 가능한 부분 -->			
+				<div class="col-4 grid-margin stretch-card" style="height:380px;">
+				<div class="card" >
+				<div class="row-lg-12" id="boardBox">
+				<table class="table" id="article-table" style="margin-top:2rem;">
+									<tbody>
+										<tr>
+											<th class="hashtag col-1">매물종류</th>
+											<td class="hashtag col-4"><input type="text" class="form-control form-control-lg"
+											id="p_type" name="p_type"	value="${estate.getP_type() }"></td>
+										</tr>
+										<tr>
+											<th class="hashtag col-1">가격</th>
+											<td class="hashtag col-4"><input type="text" class="form-control form-control-lg"
+											id="price"	 name="price" value="${estate.getPrice() }"></td>
+										</tr>
+										<tr>
+											<th class="hashtag col-1">면적</th>
+											<td class="hashtag col-4"><input type="text" class="form-control form-control-lg"
+											id="area" name="area" value="${estate.getArea() }"></td>
+										</tr>
+										<tr>
+											<th class="hashtag col-1">위험도</th>
+											<td class="hashtag col-4"><input type="text" class="form-control form-control-lg"
+											id="risk"	name="risk" value="${estate.getRisk() }"></td>
+										</tr>
+										<tr>
+										<td colspan=3><input type="submit" value="수정하기" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:20rem; margin:0 auto;"></input></td>
+										</tr>
+										</tbody>
+										</table>
+										</div>
 				</div>
+				</div>
+				
+				<!-- 오른쪽아래박스 / 수정 불가능 부분-->
+					<div class="col-7 grid-margin stretch-card" style="height: 380px">
+						<div class="card">
+							<div class="row-lg-12" id="boardBox">
+								<table class="table" id="article-table" style="margin-top:2rem;">
+									<tbody>
+										<tr>
+											<th class="hashtag col-1">우편번호</th>
+											<td class="hashtag col-2"><input type="text" class="form-control form-control-lg"
+											id="postcode" readonly 	value="${estate.getPostcode() }"></td>
+											<th class="hashtag col-2">주소</th>
+											<td class="hashtag col-4"><input type="text" class="form-control form-control-lg"
+											id="address" readonly 	value="${estate.getRoadaddress() } 	${estate.getDetailaddress() }"></td>
+										</tr>
+										<tr>
+											<th class="hashtag col-2"><a>매물 분류</a></th>
+											<td class="hashtag"><input type="text" class="form-control form-control-lg"
+											id="e_type"  readonly 	value="${estate.getE_type() }"></td>
+											<th class="hashtag col-2"><a>공인중개사</a></th>
+											<td class="hashtag"><input type="text" class="form-control form-control-lg"
+											id="ea_name"  readonly 	value="${estate.getEa_name() }"></td>
+
+										</tr>
+										<tr>
+											<th class="hashtag col-2"><a>방 개수</a></th>
+											<td class="hashtag"><input type="text" class="form-control form-control-lg"
+											id="room"  readonly 	value="${estate.getRoom() }개"></td>
+											<th class="hashtag col-2"><a>작성일</a></th>
+											<td class="hashtag"><input type="text" class="form-control form-control-lg"
+											id="regDate"  readonly 	value="${estate.getRegDate() }"></td>
+
+										</tr>
+										<tr>
+											<th class="hashtag col-2"><a>건물 층수 / 매물 층수</a></th>
+											<td class="hashtag"><input type="text" class="form-control form-control-lg"
+											id="floor" readonly 	value="${estate.getMax_floor() } / ${estate.getE_floor() }"></td>
+											<th class="hashtag col-2"><a>준공일</a></th>
+											<td class="hashtag"><input type="text" class="form-control form-control-lg"
+											id="e_date" readonly 	value="${estate.getE_date() }"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					</div>
+					</form>
+					
 
 				<!-- content-wrapper ends -->
 				<!-- partial:partials/_footer.html -->

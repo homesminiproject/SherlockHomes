@@ -74,7 +74,7 @@ white-space:normal;
 										<tr>
 											<td colspan=3 class="title col-12"><input type="text" class="form-control form-control-lg"
 											id="content" style="height:100px" readonly
-											placeholder="내용"></td>
+											value="${report.getContent()}"></td>
 										</tr>
 									</tbody>
 								</table>

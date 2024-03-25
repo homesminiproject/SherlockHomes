@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import DTO.NoticeDTO;
 import dbconnection.MyDBConnection;
@@ -136,7 +138,7 @@ public class NoticeDAO {
 	            notice.setN_no(rs.getInt("n_no"));
 	            notice.setTitle(rs.getString("title"));
 	            notice.setContent(rs.getString("content"));
-	            notice.setRegDate(rs.getTimestamp("regDate"));
+	            notice.setRegDate(rs.getDate("regDate"));
 	             
 	             NoticeList.add(notice);
 	         }         
@@ -167,7 +169,10 @@ public class NoticeDAO {
 		        	 notice.setTitle(rs.getString("title"));
 		        	 notice.setContent(rs.getString("content"));
 		        	 notice.setRegDate(rs.getTimestamp("regDate"));
-		             
+		        	 
+		        	 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z", Locale.KOREAN);
+		        	 
+		        	 
 		             noticeList.add(notice);
 		         }         
 		      } catch (SQLException e) {
