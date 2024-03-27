@@ -12,13 +12,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>셜록HOMES</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/SherlockHomes/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/SherlockHomes/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="/SherlockHomes/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../../images/HOMES.png" />
+  <link rel="shortcut icon" href="/SherlockHomes/images/HOMES.png" />
+  <script>
+    $(document).ready(function() {
+        // 폼이 제출될 때 실행되는 함수
+        $('form').submit(function(event) {
+            // 기본 제출 행동 방지
+            event.preventDefault();
+            
+            // 검색 조건과 검색어 가져오기
+            var searchCondition = $('#searchCondition').val();
+            var searchKeyword = $('#searchKeyword').val();
+            
+            // AJAX 요청
+            $.ajax({
+                type: 'POST', // 요청 방식
+                url: 'getListNotice.do5', // 요청 URL
+                data: { // 전송할 데이터
+                    searchCondition: searchCondition,
+                    searchKeyword: searchKeyword
+                },
+                success: function(response) { // 요청 성공 시 실행되는 함수
+                    // 응답 내용을 삽입할 위치 선택
+                    $('#boardBox').html(response);
+                },
+                error: function(xhr, status, error) { // 요청 실패 시 실행되는 함수
+                    console.error(xhr.responseText); // 콘솔에 오류 로그 출력
+                    // 사용자에게 오류 메시지를 보여줄 수도 있음
+                    alert('검색에 실패했습니다. 다시 시도해주세요.');
+                }
+            });
+        });
+    });
+</script>
 </head>
 <body>
   <div class="container-scroller">
@@ -86,6 +118,35 @@
             </div>
         </div>
     </div>
+<%
+    // 페이지당 공지사항 개수
+    int pageSize = 10;
+
+    // 현재 페이지 번호
+    int currentPage = 1;
+
+    // 현재 요청된 페이지 번호가 있는지 확인하고, 없으면 1로 설정
+    String currentPageStr = request.getParameter("page");
+    if (currentPageStr != null && !currentPageStr.isEmpty()) {
+        currentPage = Integer.parseInt(currentPageStr);
+    }
+
+    // NoticeDAO를 이용하여 공지사항 리스트 가져오기
+    QuestionDAO questionDAO = new QuestionDAO();
+    List<QuestionDTO> questionList = questionDAO.getQuestionPage((currentPage - 1) * pageSize, pageSize);
+
+    // 총 공지사항 개수 가져오기
+    int totalQuestions = questionDAO.getTotalRecords();
+
+    // 총 페이지 수 계산
+    int totalPages = (int) Math.ceil((double) totalQuestions / pageSize);
+
+    // 이전 페이지 번호
+    int prevPage = currentPage > 1 ? currentPage - 1 : 1;
+
+    // 다음 페이지 번호
+    int nextPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+%>
 
     <div class="row-lg-12" id="boardBox">
         <table class="table" id="article-table">
@@ -101,11 +162,7 @@
             </tr>
             </thead>
             <tbody>
-            <%
-									QuestionDAO questionDAO = new QuestionDAO();
-					                List<QuestionDTO> questionList = questionDAO.getQuestionAll(null);
-					                for (QuestionDTO question : questionList) {
-    	    			%>
+             <% for (QuestionDTO question :questionList) { %>
             <tr>
             	<td class="hashtag"><%= question.getQ_no() %></td>
                 <td><a href="getQuestion.do?q_no=<%= question.getQ_no() %>"><%= question.getQ_title() %></a></td>
@@ -126,9 +183,21 @@
     <div class="row" style="margin:0 auto;">
         <nav id="pagination" aria-label="Page navigation">
             <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="question.jsp?page=<%= prevPage %>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <% for (int i = 1; i <= totalPages; i++) { %>
+                    <li class="page-item <%= i == currentPage ? "active" : "" %>">
+                        <a class="page-link" href="question.jsp?page=<%= i %>"><%= i %></a>
+                    </li>
+                <% } %>
+                <li class="page-item">
+                    <a class="page-link" href="question.jsp?page=<%= nextPage %>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
@@ -149,17 +218,17 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="../../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../../vendors/js/vendor.bundle.addons.js"></script>
+  <script src="/SherlockHomes/vendors/js/vendor.bundle.base.js"></script>
+  <script src="/SherlockHomes/vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="../../js/off-canvas.js"></script>
-  <script src="../../js/misc.js"></script>
+  <script src="/SherlockHomes/js/off-canvas.js"></script>
+  <script src="/SherlockHomes/js/misc.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
-  <script src="../../js/dashboard.js"></script>
+  <script src="/SherlockHomes/js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
 

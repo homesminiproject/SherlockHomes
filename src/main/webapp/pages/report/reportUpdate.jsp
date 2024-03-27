@@ -10,13 +10,23 @@
 <title>셜록HOMES</title>
 <!-- plugins:css -->
 <link rel="stylesheet"
-	href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+	href="/SherlockHomes/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="/SherlockHomes/vendors/css/vendor.bundle.base.css">
 <!-- endinject -->
 <!-- inject:css -->
 <link rel="stylesheet" href="/SherlockHomes/css/style.css">
 <!-- endinject -->
 <link rel="shortcut icon" href="/SherlockHomes/images/HOMES.png" />
+<script>
+    // textarea 요소에 이벤트 리스너 추가
+    document.getElementById('content').addEventListener('keydown', function(event) {
+        // 엔터 키의 keyCode는 13입니다.
+        if (event.keyCode === 13 && event.shiftKey === false) { 
+            // 엔터 키를 누르고 Shift 키를 동시에 누르지 않았을 때만 기본 동작 막기
+            event.preventDefault(); // 기본 동작 막기
+        }
+    });
+</script>
 <style>
 #content{
 white-space:normal;
@@ -50,35 +60,35 @@ white-space:normal;
 								<table class="table" id="article-table" style="margin-top:2rem;">
 									<tbody>
 										<tr>
-											<td class="title col-3"><input type="email" class="form-control form-control-lg"
+											<td class="title col-3"><input type="text" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
 											value="${report.getTitle()}"></td>
-											<td class="writer col-2"><input type="email" class="form-control form-control-lg"
+											<td class="writer col-2"><input type="text" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
 											value="${report.getWriter()}"></td>
-											<td class="date col-2"><input type="email" class="form-control form-control-lg"
+											<td class="date col-2"><input type="text" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
 											value="${report.getRegDate()}"></td>
 										</tr>
 										<tr>
-											<td class="title col-3"><input type="email" class="form-control form-control-lg"
+											<td class="title col-3"><input type="text" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
 											value="${report.getR_type()}"></td>
-											<td class="writer col-2"><input type="email" class="form-control form-control-lg"
+											<td class="writer col-2"><input type="text" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
 											value="${report.getR_name()}"></td>
-											<td class="date col-2"><input type="email" class="form-control form-control-lg"
+											<td class="date col-2"><input type="text" class="form-control form-control-lg"
 											id="exampleInputEmail1" readonly
 											value="${report.getR_count()}회"></td>
 										</tr>
 										<tr>
-											<td colspan=3 class="title col-12"><input type="text" class="form-control form-control-lg"
+											<td colspan=3 class="title col-12"><textarea class="form-control form-control-lg"
 											id="content" style="height:100px" readonly
-											value="${report.getContent()}"></td>
+											placeholder="${report.getContent()}"></textarea>></td>
 										</tr>
 									</tbody>
 								</table>
-								<form action="updateReport.do" method="post">
+								<form action="updateReport.do7" method="post">
 								<div class="mt-3 text-center" style="margin:0.5rem auto">
 								<ul style="list-style:none; display:flex; justify-content:center;">
 										<li><input type="hidden" name="r_no" value="${report.getR_no()}"><button name="selectStatus" id="selectStatus" value="check" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" style="width:15rem; margin:0 0.5rem;">신고처리</button></li>
@@ -104,17 +114,17 @@ white-space:normal;
 	<!-- container-scroller -->
 
 	<!-- plugins:js -->
-	<script src="../../vendors/js/vendor.bundle.base.js"></script>
-	<script src="../../vendors/js/vendor.bundle.addons.js"></script>
+	<script src="/SherlockHomes/vendors/js/vendor.bundle.base.js"></script>
+	<script src="/SherlockHomes/vendors/js/vendor.bundle.addons.js"></script>
 	<!-- endinject -->
 	<!-- Plugin js for this page-->
 	<!-- End plugin js for this page-->
 	<!-- inject:js -->
-	<script src="../../js/off-canvas.js"></script>
-	<script src="../../js/misc.js"></script>
+	<script src="/SherlockHomes/js/off-canvas.js"></script>
+	<script src="/SherlockHomes/js/misc.js"></script>
 	<!-- endinject -->
 	<!-- Custom js for this page-->
-	<script src="../../js/dashboard.js"></script>
+	<script src="/SherlockHomes/js/dashboard.js"></script>
 	<!-- End custom js for this page-->
 </body>
 

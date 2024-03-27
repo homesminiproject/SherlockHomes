@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function() {
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left p-5">
               <div class="brand-logo text-center">
-                <a href="../../index.jsp"><img src="../../images/HOMES.png">
+                <a href="/SherlockHomes/index.jsp"><img src="/SherlockHomes/images/HOMES.png">
                   <h1 id="logoText">셜록HOMES</h1>
                    <h4 id="logoText">―― 전세사기 없이 청정한 ――</h4></a>
 <br>

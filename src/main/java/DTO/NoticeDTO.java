@@ -7,18 +7,14 @@ public class NoticeDTO {
 	private String title;
 	private String content;
 	private Date regDate;
-	private String searchCondition;  // 검색 조건
-	private String searchKeyword; // 검색 키워드
-	
-	   public NoticeDTO() {
-		super();
-	}
-	   
-	   
+	private String searchCondition;
+	private String searchKeyword;
 
-	public NoticeDTO(int n_no, String title, String content, Date regDate, 
-			String searchCondition, String searchKeyword) {
-		super();
+	public NoticeDTO() {
+	}
+
+	public NoticeDTO(int n_no, String title, String content, Date regDate, String searchCondition,
+			String searchKeyword) {
 		this.n_no = n_no;
 		this.title = title;
 		this.content = content;
@@ -27,10 +23,8 @@ public class NoticeDTO {
 		this.searchKeyword = searchKeyword;
 	}
 
-
-
 	public int getN_no() {
-		return n_no;
+		return this.n_no;
 	}
 
 	public void setN_no(int n_no) {
@@ -38,7 +32,7 @@ public class NoticeDTO {
 	}
 
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	public void setTitle(String title) {
@@ -46,7 +40,7 @@ public class NoticeDTO {
 	}
 
 	public String getContent() {
-		return content;
+		return this.content;
 	}
 
 	public void setContent(String content) {
@@ -54,16 +48,15 @@ public class NoticeDTO {
 	}
 
 	public Date getRegDate() {
-		return regDate;
+		return this.regDate;
 	}
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
 
-
 	public String getSearchCondition() {
-		return searchCondition;
+		return this.searchCondition;
 	}
 
 	public void setSearchCondition(String searchCondition) {
@@ -71,22 +64,16 @@ public class NoticeDTO {
 	}
 
 	public String getSearchKeyword() {
-		return searchKeyword;
+		return this.searchKeyword;
 	}
 
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
 	}
 
-
-
-	@Override
 	public String toString() {
-		return "NoticeDTO [n_no=" + n_no + ", title=" + title + ", content=" + content + ", regDate=" + regDate
-				+ ", searchCondition=" + searchCondition + ", searchKeyword="
-				+ searchKeyword + "]";
+		return "NoticeDTO [n_no=" + this.n_no + ", title=" + this.title + ", content=" + this.content + ", regDate="
+				+ this.regDate + ", searchCondition=" + this.searchCondition + ", searchKeyword=" + this.searchKeyword
+				+ "]";
 	}
-
-	
-	
 }

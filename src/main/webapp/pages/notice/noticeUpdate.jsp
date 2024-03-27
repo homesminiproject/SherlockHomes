@@ -59,8 +59,8 @@ height:400px;
 											id="title" name="title" value="${notice.getTitle()}"></td>
 										</tr>
 										<tr>
-											<td class="hashtag col-10"><input type="text" class="form-control form-control-lg"
-											id="content" name="content" value="${notice.getContent()}"></td>
+											<td class="hashtag col-10"><textarea class="form-control form-control-lg"
+											id="content" name="content" >${notice.getContent()}</textarea></td>
 										</tr>
 									</tbody>
 								</table>

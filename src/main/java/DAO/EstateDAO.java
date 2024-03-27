@@ -23,7 +23,7 @@ public class EstateDAO {
 	private String ESTATE_GANGBUK = "select count(*) from estate_gangbuk_gu";
 	private String ESTATE_GANGSEO = "select count(*) from estate_gangseo_gu";
 	private String ESTATE_COUNT = "select count(*) from estate";
-	private String ESTATE_GET_RANGE = "select * from estate where e_no > ?, e_no <= ?";
+	private String ESTATE_GET_RANGE = "SELECT * FROM estate ORDER BY e_no DESC LIMIT ?, ?";
 	 //검색 관련
 	   private String ESTATE_LIST_T ="select * from estate where e_type like ? order by e_no desc";
 	   private String ESTATE_LIST_A ="select * from estate where roadaddress like ? order by e_no desc";
@@ -205,44 +205,47 @@ public class EstateDAO {
 		      
 		   }
 	   
-	   public List<EstateDTO> getEstatePage(int currentPage, int recordsPerPage) {
+	   public List<EstateDTO> getEstatePage(int start, int count) {
 		    List<EstateDTO> estateList = new ArrayList<>();
-		    
+
 		    try {
 		        con = MyDBConnection.getConnection();
-		        pstmt = con.prepareStatement(ESTATE_GET_RANGE); // ESTATE_GET_RANGE는 시작 레코드와 끝 레코드를 기반으로 데이터를 가져오는 SQL 쿼리입니다.
-		        pstmt.setInt(1, currentPage*10);
-		        pstmt.setInt(2, recordsPerPage);
+		        // 수정된 쿼리: 페이징을 위해 LIMIT를 사용하여 start부터 count개의 데이터를 가져옴
+		        pstmt = con.prepareStatement(ESTATE_GET_RANGE);
+		        pstmt.setInt(1, start);
+		        pstmt.setInt(2, count);
 		        rs = pstmt.executeQuery();
-		        
-		        while(rs.next()) {
-		            EstateDTO estate = new EstateDTO();
-		            estate.setE_no(rs.getInt("e_no"));
-		            estate.setPostcode(rs.getInt("postcode"));
-		            estate.setRoadaddress(rs.getString("roadaddress"));
-		            estate.setJibunaddress(rs.getString("jibunaddress"));
-		            estate.setDetailaddress(rs.getString("detailaddress"));
-		            estate.setE_type(rs.getString("e_type"));
-		            estate.setP_type(rs.getString("p_type"));
-		            estate.setPrice(rs.getString("price"));
-		            estate.setE_no(rs.getInt("e_no"));
-		            estate.setEa_name(rs.getString("ea_name"));
-		            estate.setRegDate(rs.getTimestamp("regDate"));
-		            estate.setRisk(rs.getString("risk"));
-		            estate.setArea(rs.getInt("area"));
-		            estate.setRoom(rs.getInt("room"));
-		            estate.setE_date(rs.getString("e_date"));
-		            estate.setMax_floor(rs.getInt("max_floor"));
-		            estate.setE_floor(rs.getInt("e_floor"));
+
+		        while (rs.next()) {
+		        	EstateDTO estate = new EstateDTO();
 		            
-		            estateList.add(estate);
-		        }         
+		        	 estate.setE_no(rs.getInt("e_no"));
+			            estate.setPostcode(rs.getInt("postcode"));
+			            estate.setRoadaddress(rs.getString("roadaddress"));
+			            estate.setJibunaddress(rs.getString("jibunaddress"));
+			            estate.setDetailaddress(rs.getString("detailaddress"));
+			            estate.setE_type(rs.getString("e_type"));
+			            estate.setP_type(rs.getString("p_type"));
+			            estate.setPrice(rs.getString("price"));
+			            estate.setE_no(rs.getInt("e_no"));
+			            estate.setEa_name(rs.getString("ea_name"));
+			            estate.setRegDate(rs.getTimestamp("regDate"));
+			            estate.setRisk(rs.getString("risk"));
+			            estate.setArea(rs.getInt("area"));
+			            estate.setRoom(rs.getInt("room"));
+			            estate.setE_date(rs.getString("e_date"));
+			            estate.setMax_floor(rs.getInt("max_floor"));
+			            estate.setE_floor(rs.getInt("e_floor"));
+			             
+		             
+		             estateList.add(estate);
+		        }
 		    } catch (SQLException e) {
 		        e.printStackTrace();
 		    } finally {
 		        MyDBConnection.close(rs, pstmt, con);
 		    }
-		   
+
 		    return estateList;
 		}
 

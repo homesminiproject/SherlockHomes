@@ -10,13 +10,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>셜록HOMES</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/SherlockHomes/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/SherlockHomes/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="/SherlockHomes/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../../images/HOMES.png">
+  <link rel="shortcut icon" href="/SherlockHomes/images/HOMES.png">
   <style>
   </style>
 </head>
@@ -58,7 +58,7 @@
             <div class="col-md-4 stretch-card grid-margin">
               <div class="card bg-gradient-danger card-img-holder text-white">
                 <div class="card-body">
-                  <img src="../../images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
+                  <img src="/SherlockHomes/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
                   <h4 class="font-weight-normal mb-3">사용자 페이지 테스트
                     <i class="mdi mdi-account mdi-24px float-right"></i>
                   </h4>
@@ -70,7 +70,7 @@
             <div class="col-md-4 stretch-card grid-margin">
               <div class="card bg-gradient-info card-img-holder text-white">
                 <div class="card-body">
-                  <img src="../../images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                  
+                  <img src="/SherlockHomes/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                  
                   <h4 class="font-weight-normal mb-3">공인중개사 수
                     <i class="mdi mdi-domain mdi-24px float-right"></i>
                   </h4>
@@ -82,7 +82,7 @@
             <div class="col-md-4 stretch-card grid-margin">
               <div class="card bg-gradient-success card-img-holder text-white">
                 <div class="card-body">
-                  <img src="../../images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                    
+                  <img src="/SherlockHomes/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                    
                   <h4 class="font-weight-normal mb-3">총 매물 개수
                     <i class="mdi mdi-diamond mdi-24px float-right"></i>
                   </h4>
@@ -164,17 +164,17 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="../../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../../vendors/js/vendor.bundle.addons.js"></script>
+  <script src="/SherlockHomes/vendors/js/vendor.bundle.base.js"></script>
+  <script src="/SherlockHomes/vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="../../js/off-canvas.js"></script>
-  <script src="../../js/misc.js"></script>
+  <script src="/SherlockHomes/js/off-canvas.js"></script>
+  <script src="/SherlockHomes/js/misc.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
-  <script src="../../js/dashboard.js"></script>
+  <script src="/SherlockHomes/js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
 

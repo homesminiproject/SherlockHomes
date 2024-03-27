@@ -10,15 +10,44 @@
 <title>셜록HOMES</title>
 <!-- plugins:css -->
 <link rel="stylesheet"
-	href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+	href="/SherlockHomes/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="/SherlockHomes/vendors/css/vendor.bundle.base.css">
 <!-- endinject -->
 <!-- inject:css -->
 <link rel="stylesheet" href="/SherlockHomes/css/style.css">
 <!-- endinject -->
 <link rel="shortcut icon" href="/SherlockHomes/images/HOMES.png" />
+<script>
+					    // 이미지를 표시할 컨테이너 엘리먼트
+					    var imageContainer = document.getElementById("imageContainer");
+					
+					    // 이미지 URL 가져오기
+					    var imageUrl = "${estate.getFilePath()}";
+					
+					    // 이미지를 표시하는 함수
+					    function displayImage(imageUrl) {
+					        // 이미지 요소 생성
+					        var imgElement = document.createElement("img");
+					        imgElement.src = imageUrl; // 이미지 URL 설정
+					        imgElement.alt = "이미지";
+					        imgElement.style.width = "700px"; // 이미지 너비 설정
+					        imgElement.style.height = "300px"; // 이미지 높이 설정
+					
+					        // 이미지를 표시할 컨테이너에 이미지 요소 추가
+					        imageContainer.appendChild(imgElement);
+					    }
+					
+					    // 이미지 URL이 유효한지 확인하고 이미지 표시
+					    if (imageUrl && imageUrl !== "null") {
+					        displayImage(imageUrl);
+					    } else {
+					        // 이미지 URL이 없거나 null인 경우 기본 이미지를 표시
+					        var defaultImageUrl = "/SherlockHomes/images/upload/1.jpg";
+					        displayImage(defaultImageUrl);
+					    }
+					</script>
 <style>
-#profile{
+#imageContainer{
 	margin: 3rem auto;
 	width:10rem;
 	height:10rem;
@@ -32,6 +61,7 @@
 padding: 0.5rem;
 }
 </style>
+
 </head>
 <body>
 	<div class="container-scroller">
@@ -52,25 +82,25 @@ padding: 0.5rem;
 					</h3>
 				</div>
 
-<form action="updateEstate.do" method="post">
+<form action="updateEstate.do4" method="post">
 						<input type="hidden" name="e_no" value="${estate.getE_no()}" >				
 				<div class="row">
 				<!-- 왼쪽위박스 / photo -->
-				<div class="col-4 grid-margin stretch-card" style="height: 250px">
+				<div class="col-4 grid-margin stretch-card" style="height: 300px">
 				<div class="card">
-				<img src="/SherlockHomes/images/HOMES.png" id="profile">
+				<div id="imageContainer" ></div>
 				</div>
 				</div>
 				
 				<!-- 오른쪽위박스 / content -->
-					<div class="col-7 grid-margin stretch-card" style="height: 250px">
+					<div class="col-8 grid-margin stretch-card" style="height: 300px">
 						<div class="card">
 							<div class="row-lg-12" id="boardBox">
 								<table class="table" id="article-table" style="margin-top:2rem;">
 									<tbody>
 										<tr>
-											<td class="hashtag"><input type="text" class="form-control form-control-lg"
-											id="content" name="content" value="${estate.getContent()}" readonly style="height:10rem"></td>
+											<td class="hashtag"><textarea class="form-control form-control-lg"
+						            id="content" name="content"style="height:10rem">${estate.getContent()}</textarea></td>
 										</tr>
 									</tbody>
 								</table>
@@ -81,7 +111,7 @@ padding: 0.5rem;
 							
 				<div class="row">
 				<!-- 왼쪽아래박스 / 수정 가능한 부분 -->			
-				<div class="col-4 grid-margin stretch-card" style="height:380px;">
+				<div class="col-4 grid-margin stretch-card" style="height:400px;">
 				<div class="card" >
 				<div class="row-lg-12" id="boardBox">
 				<table class="table" id="article-table" style="margin-top:2rem;">
@@ -116,7 +146,7 @@ padding: 0.5rem;
 				</div>
 				
 				<!-- 오른쪽아래박스 / 수정 불가능 부분-->
-					<div class="col-7 grid-margin stretch-card" style="height: 380px">
+					<div class="col-8 grid-margin stretch-card" style="height: 400px">
 						<div class="card">
 							<div class="row-lg-12" id="boardBox">
 								<table class="table" id="article-table" style="margin-top:2rem;">
@@ -127,7 +157,7 @@ padding: 0.5rem;
 											id="postcode" readonly 	value="${estate.getPostcode() }"></td>
 											<th class="hashtag col-2">주소</th>
 											<td class="hashtag col-4"><input type="text" class="form-control form-control-lg"
-											id="address" readonly 	value="${estate.getRoadaddress() } 	${estate.getDetailaddress() }"></td>
+											id="address" readonly 	value="${estate.getRoadaddress() } ${estate.getDetailaddress() }"></td>
 										</tr>
 										<tr>
 											<th class="hashtag col-2"><a>매물 분류</a></th>
@@ -176,17 +206,17 @@ padding: 0.5rem;
 	<!-- container-scroller -->
 
 	<!-- plugins:js -->
-	<script src="../../vendors/js/vendor.bundle.base.js"></script>
-	<script src="../../vendors/js/vendor.bundle.addons.js"></script>
+	<script src="/SherlockHomes/vendors/js/vendor.bundle.base.js"></script>
+	<script src="/SherlockHomes/vendors/js/vendor.bundle.addons.js"></script>
 	<!-- endinject -->
 	<!-- Plugin js for this page-->
 	<!-- End plugin js for this page-->
 	<!-- inject:js -->
-	<script src="../../js/off-canvas.js"></script>
-	<script src="../../js/misc.js"></script>
+	<script src="/SherlockHomes/js/off-canvas.js"></script>
+	<script src="/SherlockHomes/js/misc.js"></script>
 	<!-- endinject -->
 	<!-- Custom js for this page-->
-	<script src="../../js/dashboard.js"></script>
+	<script src="/SherlockHomes/js/dashboard.js"></script>
 	<!-- End custom js for this page-->
 </body>
 

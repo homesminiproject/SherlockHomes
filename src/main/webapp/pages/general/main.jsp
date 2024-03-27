@@ -1,3 +1,5 @@
+<%@page import="DTO.EstateDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="DAO.EstateDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -13,13 +15,13 @@
 <title>셜록HOMES</title>
 <!-- plugins:css -->
 <link rel="stylesheet"
-	href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+	href="/SherlockHomes/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="/SherlockHomes/vendors/css/vendor.bundle.base.css">
 <!-- endinject -->
 <!-- inject:css -->
-<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="/SherlockHomes/css/style.css">
 <!-- endinject -->
-<link rel="shortcut icon" href="../../images/HOMES.png">
+<link rel="shortcut icon" href="/SherlockHomes/images/HOMES.png">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 #estateChart {
@@ -65,26 +67,26 @@
 					<div class="col-md-4 stretch-card grid-margin">
 						<div class="card bg-gradient-danger card-img-holder text-white">
 							<div class="card-body">
-								<img src="../../images/dashboard/circle.svg"
+								<img src="/SherlockHomes/images/dashboard/circle.svg"
 									class="card-img-absolute" alt="circle-image" />
 								<h4 class="font-weight-normal mb-3">
 									일반회원 수 <i class="mdi mdi-account mdi-24px float-right"></i>
 								</h4>
-								<h2 class="mb-5">5121명</h2>
-								<h6 class="card-text">오늘 가입자 수 : 10 명</h6>
+								<h2 class="mb-5">${userData[0]}명</h2>
+								<h6 class="card-text">오늘 가입자 수 : ${userData[1]} 명</h6>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-4 stretch-card grid-margin">
 						<div class="card bg-gradient-info card-img-holder text-white">
 							<div class="card-body">
-								<img src="../../images/dashboard/circle.svg"
+								<img src="/SherlockHomes/images/dashboard/circle.svg"
 									class="card-img-absolute" alt="circle-image" />
 								<h4 class="font-weight-normal mb-3">
 									공인중개사 수 <i class="mdi mdi-domain mdi-24px float-right"></i>
 								</h4>
-								<h2 class="mb-5">126명</h2>
-								<h6 class="card-text">오늘 가입자 수 : 3명</h6>
+								<h2 class="mb-5">${userData[2]}명</h2>
+								<h6 class="card-text">오늘 가입자 수 : ${userData[3]}명</h6>
 							</div>
 						</div>
 					</div>
@@ -96,8 +98,8 @@
 								<h4 class="font-weight-normal mb-3">
 									총 매물 개수 <i class="mdi mdi-diamond mdi-24px float-right"></i>
 								</h4>
-								<h2 class="mb-5">95,5741</h2>
-								<h6 class="card-text">오늘 체결된 매물 수 : 34개</h6>
+								<h2 class="mb-5">${userData[4]}개</h2>
+								<h6 class="card-text">오늘 등록된 매물 개수 : ${userData[5]}개</h6>
 							</div>
 						</div>
 					</div>
@@ -113,33 +115,59 @@
 									<p style="margin-top: -12px"></p>
 									<div id="map" style="width: 100%; height: 350px;"></div>
 									<script>
-                      var map = new kakao.maps.Map(document.getElementById('map'), { // 지도를 표시할 div
-                          center : new kakao.maps.LatLng(37.5518911, 126.9917937), // 지도의 중심좌표 
-                          level : 9 // 지도의 확대 레벨 
-                      });
-                      
-                      // 마커 클러스터러를 생성합니다 
-                      var clusterer = new kakao.maps.MarkerClusterer({
-                          map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
-                          averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-                          minLevel: 2 // 클러스터 할 최소 지도 레벨 
-                      });
-                   
-                      // 데이터를 가져오기 위해 jQuery를 사용합니다
-                      // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
-                      $.get("/download/web/data/chicken.json", function(data) {
-                          // 데이터에서 좌표 값을 가지고 마커를 표시합니다
-                          // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
-                          var markers = $(data.positions).map(function(i, position) {
-                              return new kakao.maps.Marker({
-                                  position : new kakao.maps.LatLng(position.lat, position.lng)
-                              });
-                          });
-                  
-                          // 클러스터러에 마커들을 추가합니다
-                          clusterer.addMarkers(markers);
-                      });
-                  </script>
+									var mapContainer = document.getElementById('map'); // 지도를 표시할 div
+								    var mapOption = {
+								        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도 중심 좌표 (서울)
+								        level: 9 // 지도 확대 레벨
+								    };
+
+								    // 지도 생성
+								    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+								    // 매물 데이터 (예시)
+								    var properties = [
+								        <%
+								            EstateDAO estateDAO = new EstateDAO();
+								            List<EstateDTO> estateList = estateDAO.getEstateAll(null);
+								            for (int i = 0; i < estateList.size(); i++) {
+								                EstateDTO estate = estateList.get(i);
+								        %>
+								        {
+								            name: '매물 <%= estate.getE_no() %>',
+								            latlng: new kakao.maps.LatLng(<%= estate.getLat() %>, <%= estate.getLng() %>),
+								            address: '<%= estate.getRoadaddress() %>',
+								            description: '<%= estate.getContent() %>'
+								        }
+								        <%-- 마지막 항목일 때는 쉼표(,) 없이 출력 --%>
+								        <% if (i != estateList.size() - 1) { %>,<% } %>
+								        <% } %>
+								    ];
+
+								    // 매물 위치를 지도에 표시
+								    properties.forEach(function(property) {
+								        var marker = new kakao.maps.Marker({
+								            position: property.latlng,
+								            map: map
+								        });
+
+								        // 정보창에 들어갈 내용
+								        var content = '<div style="padding:5px;">' +
+								            '<strong>' + property.name + '</strong><br>' +
+								            '주소: ' + property.address + '<br>' +
+								            '설명: ' + property.description +
+								            '</div>';
+
+								        // 마커 클릭 시 정보창 표시
+								        kakao.maps.event.addListener(marker, 'click', function() {
+								            var infowindow = new kakao.maps.InfoWindow({
+								                content: content,
+								                maxHeight: 300
+								            });
+								            infowindow.open(map, marker);
+								        });
+								    });
+								    
+								</script>
 									<div id="visit-sale-chart-legend"
 										class="rounded-legend legend-horizontal legend-top-right float-right"
 										style="display: none;"></div>
@@ -193,30 +221,16 @@ const estateChart = new Chart(ctx, {
 				</div>
 
 
-				<!-- content-wrapper ends -->
-				<!-- partial:partials/_footer.html -->
 				<%@ include file="/pages/layout/footer.jsp"%>
-				<!-- partial -->
 			</div>
-			<!-- main-panel ends -->
 		</div>
-		<!-- page-body-wrapper ends -->
 	</div>
-	<!-- container-scroller -->
 
-	<!-- plugins:js -->
 	<script src="../../vendors/js/vendor.bundle.base.js"></script>
 	<script src="../../vendors/js/vendor.bundle.addons.js"></script>
-	<!-- endinject -->
-	<!-- Plugin js for this page-->
-	<!-- End plugin js for this page-->
-	<!-- inject:js -->
 	<script src="../../js/off-canvas.js"></script>
 	<script src="../../js/misc.js"></script>
-	<!-- endinject -->
-	<!-- Custom js for this page-->
 	<script src="../../js/dashboard.js"></script>
-	<!-- End custom js for this page-->
 </body>
 
 </html>

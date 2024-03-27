@@ -11,8 +11,8 @@
 <title>셜록HOMES</title>
 <!-- plugins:css -->
 <link rel="stylesheet"
-	href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+	href="/SherlockHomes/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="/SherlockHomes/vendors/css/vendor.bundle.base.css">
 <!-- endinject -->
 <!-- inject:css -->
 <link rel="stylesheet" href="/SherlockHomes/css/style.css">
@@ -50,14 +50,13 @@
 							<div class="row" style="padding-left: 20px">
 								<div class="card card-margin search-form">
 									<div class="card-body p-0">
-										<form id="search-form">
+										<form action="SearchAgent.do2" method="post">
 											<div class="row">
 												<div class="col-12">
 													<div class="row no-gutters">
 														<div class="col-lg-3 col-md-3 col-sm-12 p-0">
 															<label for="search-type" hidden>검색 유형</label> <select
-																class="form-control" id="search-type" name="searchType">
-																<option>회원번호</option>
+																class="form-control" id="searchCondition" name="searchCondition">
 																<option>공인중개사명</option>
 																<option>상태</option>
 															</select>
@@ -65,7 +64,7 @@
 														<div class="col-lg-8 col-md-6 col-sm-12 p-0">
 															<label for="search-value" hidden>검색어</label> <input
 																type="text" placeholder="검색어..." class="form-control"
-																id="search-value" name="searchValue">
+																id="searchKeyword" name="searchKeyword">
 														</div>
 														<div class="col-lg-1 col-md-3 col-sm-12 p-0">
 															<button type="submit" class="btn btn-base">
@@ -104,53 +103,20 @@
 									</thead>
 
 									<!-- 내용 -->
+									<c:forEach begin="${startAgentIndex}" end="${endAgentIndex}" items="${agentList}" var="agent" varStatus="status">
 									<tbody>
 										<tr>
-											<td class="hashtag">1111</td>
-											<td class="title"><a>중앙공인중개사</a></td>
-											<td class="user-id">서울시 강남구</td>
-											<td class="created-at"><time>2024-03-13</time></td>
-											<td class="user-id">3</td>
-											<td class="created-at">가입완료</td>
-											<td class="created-at">
-											<a href="http://localhost:8080/SherlockHomes/pages/company/companyUpdate.jsp"> <!-- 수정페이지 --> <i class="mdi mdi-pencil menu-icon"></i></a> 
-											| 
-											<a href="#"><i class="mdi mdi-delete-empty menu-icon"></i></a> <!-- 바로삭제 -->
+											<td>${agent.getEa_no()}</td>
+											<td><a href="getAgent.do2?ea_no=${agent.getEa_no()}">${agent.getRep_name()}</a></td>
+											<td>${agent.getJibunaddress()}</td>
+											<td>${agent.getRegdate()}</td>
+											<td>${agent.getReport()}</td>
+											<td>${agent.getStatus()}</td>
+											<td><a href="getAgent.do2?ea_no=${agent.getEa_no()}"><i class="mdi mdi-pencil menu-icon"></i></a> | 
+											<a href="deleteAgent.do2?ea_no=${agent.getEa_no()}"><i class="mdi mdi-delete-empty menu-icon"></i></a>
 											</td>
 										</tr>
-										<tr>
-											<td class="hashtag">1111</td>
-											<td class="title"><a>중앙공인중개사</a></td>
-											<td class="user-id">서울시 강남구</td>
-											<td class="created-at"><time>2024-03-13</time></td>
-											<td class="user-id">0</td>
-											<td class="created-at">가입대기</td>
-											<td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/company/companyUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
-										</tr>
-										<tr>
-											<td class="hashtag">1111</td>
-											<td class="title"><a>중앙공인중개사</a></td>
-											<td class="user-id">서울시 강남구</td>
-											<td class="created-at"><time>2024-03-13</time></td>
-											<td class="user-id">2</td>
-											<td class="created-at">정지</td>
-											<td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/company/companyUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
-										</tr>
-										<tr>
-											<td class="hashtag">1111</td>
-											<td class="title"><a>중앙공인중개사</a></td>
-											<td class="user-id">서울시 강남구</td>
-											<td class="created-at"><time>2024-03-13</time></td>
-											<td class="user-id">2</td>
-											<td class="created-at">탈퇴</td>
-											<td class="created-at"><a href="http://localhost:8080/SherlockHomes/pages/company/companyUpdate.jsp"><i
-													class="mdi mdi-pencil menu-icon"></i></a> | <a href="#"><i
-													class="mdi mdi-delete-empty menu-icon"></i></a></td>
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -169,30 +135,16 @@
 					</div>
 				</div>
 
-				<!-- content-wrapper ends -->
-				<!-- partial:partials/_footer.html -->
 				<%@ include file="/pages/layout/footer.jsp"%>
-				<!-- partial -->
 			</div>
-			<!-- main-panel ends -->
 		</div>
-		<!-- page-body-wrapper ends -->
 	</div>
-	<!-- container-scroller -->
 
-	<!-- plugins:js -->
-	<script src="../../vendors/js/vendor.bundle.base.js"></script>
-	<script src="../../vendors/js/vendor.bundle.addons.js"></script>
-	<!-- endinject -->
-	<!-- Plugin js for this page-->
-	<!-- End plugin js for this page-->
-	<!-- inject:js -->
-	<script src="../../js/off-canvas.js"></script>
-	<script src="../../js/misc.js"></script>
-	<!-- endinject -->
-	<!-- Custom js for this page-->
-	<script src="../../js/dashboard.js"></script>
-	<!-- End custom js for this page-->
+	<script src="/SherlockHomes/vendors/js/vendor.bundle.base.js"></script>
+	<script src="/SherlockHomes/vendors/js/vendor.bundle.addons.js"></script>
+	<script src="/SherlockHomes/js/off-canvas.js"></script>
+	<script src="/SherlockHomes/js/misc.js"></script>
+	<script src="/SherlockHomes/js/dashboard.js"></script>
 </body>
 
 </html>

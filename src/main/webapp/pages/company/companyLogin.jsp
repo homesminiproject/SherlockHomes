@@ -9,15 +9,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>셜록HOMES</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/SherlockHomes/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/SherlockHomes/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="/SherlockHomes/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../../images/HOMES.png"/>
+  <link rel="shortcut icon" href="/SherlockHomes/images/HOMES.png"/>
 
 	<style>
 	.mb-2{
@@ -27,6 +27,27 @@
 	text-decoration: none;
 	}
 	</style>
+	<script>
+  document.addEventListener('DOMContentLoaded', function() {
+	  var agreeCheckbox3 = document.getElementById('agree3');
+	  var idInput3 = document.getElementById('agentid');
+
+	  // 페이지가 로드되었을 때 저장된 아이디가 있으면 아이디 입력칸에 입력
+	  if (localStorage.getItem('rememberId3')) {
+	    idInput3.value = localStorage.getItem('rememberId3');
+	    agreeCheckbox3.checked = true;
+	  }
+
+	  // 체크박스 상태에 따라 아이디 기억하기 여부 저장
+	  agreeCheckbox3.addEventListener('change', function() {
+	    if (agreeCheckbox3.checked) {
+	      localStorage.setItem('rememberId3', idInput3.value);
+	    } else {
+	      localStorage.removeItem('rememberId3');
+	    }
+	  });
+	});
+</script>
 </head>
 
 <body>
@@ -37,28 +58,28 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left p-5">
               <div class="brand-logo text-center">
-                <a href="../../index.jsp"><img src="../../images/HOMES.png" id="logo"> <!-- 로고변경 -->
+                <a href="/SherlockHomes/index.jsp"><img src="/SherlockHomes/images/HOMES.png" id="logo"> <!-- 로고변경 -->
                 <h1 id="logoText">셜록HOMES</h1>
                 	<h4 id="logoText">―― 전세사기 없이 청정한 ――</h4></a>
                 	<br>
 				<h3>공인중개사 로그인</h3>
               </div>
-              <form class="pt-3">
+              <form action="loginAgent.do2" method="post" class="pt-3" >
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="이메일을 입력해주세요" required>
+                  <input type="email" class="form-control form-control-lg" id="agentid" name="agentid" placeholder="이메일을 입력해주세요" required>
                 </div>
                 <div class="form-group">
-                  <input type="pw" class="form-control form-control-lg" id="exampleInputpw1" placeholder="비밀번호를 입력해주세요" required>
+                  <input type="password" class="form-control form-control-lg" id="pw" name="pw" placeholder="비밀번호를 입력해주세요" required>
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="../general/main.jsp">로그인하기</a>
+                  <input type="submit" value="로그인" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" >
                 </div>
                 
                 <div class="my-2 d-flex justify-content-between align-items-center">
-                  <div class="form-check">
-                    <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
-                      로그인 유지하기
+                  <div class="form-group form-check">
+                      <input type="checkbox" class="form-check-input" id="agree3">
+                    <label class="form-check-label text-muted" for="agree3">
+                      아이디 기억하기
                     </label>
                   </div>
                   <a href="#" class="auth-link text-black">비밀번호 찾기</a>
@@ -77,12 +98,12 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="../../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../../vendors/js/vendor.bundle.addons.js"></script>
+  <script src="/SherlockHomes/vendors/js/vendor.bundle.base.js"></script>
+  <script src="/SherlockHomes/vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- inject:js -->
-  <script src="../../js/off-canvas.js"></script>
-  <script src="../../js/misc.js"></script>
+  <script src="/SherlockHomes/js/off-canvas.js"></script>
+  <script src="/SherlockHomes/js/misc.js"></script>
   <!-- endinject -->
 </body>
 

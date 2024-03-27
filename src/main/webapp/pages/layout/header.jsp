@@ -10,14 +10,31 @@
 <meta charset="UTF-8">
 <title>셜록HOMES</title>
   <link href="SherlockHomes/css/basic.css" rel="stylesheet" />
+  <Script>
+function checkSession() {
+    fetch('/checkSession') // 세션 확인을 위한 URL 설정
+    .then(response => {
+        if (response.status === 401) { // 세션 만료 상태 코드
+            alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+            window.location.href = "logout.do3"; // 로그아웃 페이지로 리다이렉트
+        }
+    })
+    .catch(error => {
+        console.error('Error checking session:', error);
+    });
+}
+
+// 일정 간격으로 checkSession 함수 호출
+setInterval(checkSession, 300000); // 5분마다 세션 확인
+</Script>
 </head>
 <body>
 
     <!-- 상단바 -->
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="/SherlockHomes/pages/general/main.jsp" style="height: 100%"><img src="/SherlockHomes/images/HOMES.png" alt="logo"  style="height: 100%" /></a>
-        <a class="navbar-brand brand-logo" href="/SherlockHomes/pages/general/main.jsp"  style="color: rgba(0, 0, 0, 0.9)"><h1 id="logo">셜록HOMES</h1></a>
+        <a class="navbar-brand brand-logo" href="mainView.do3" style="height: 100%"><img src="/SherlockHomes/images/HOMES.png" alt="logo"  style="height: 100%" /></a>
+        <a class="navbar-brand brand-logo" href="mainView.do3"  style="color: rgba(0, 0, 0, 0.9)"><h1 id="logo">셜록HOMES</h1></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <div class="search-field d-none d-md-block">
@@ -31,13 +48,13 @@
                 <span class="availability-status online"></span>             
               </div>
               <div class="nav-profile-text">
-                <p class="mb-1 text-black">관리자</p>
+                <p class="mb-1 text-black">${user.getName()}${userId}</p>
               </div>
             </a>
             <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item" href="/SherlockHomes/index.jsp">
                 <i class="mdi mdi-cached mr-2 text-success"></i>
-                계정관리
+                쪽지
               </a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/SherlockHomes/pages/general/adminLogin.jsp">
@@ -54,7 +71,7 @@
          
           
           <li class="nav-item nav-logout d-none d-lg-block">
-            <a class="nav-link" href="../../index.jsp">
+            <a class="nav-link" href="/SherlockHomes/index.jsp">
               <i class="mdi mdi-power"></i>
             </a>
           </li>
@@ -72,15 +89,7 @@
 <%
 	UsersDTO user = (UsersDTO) session.getAttribute("user");
 %>
-<%--
-<%	if(user == null) { %>
-	<a href="/board/insertUser.jsp">회원가입</a>&nbsp;&nbsp;&nbsp;
-	<a href="login.do">로그인</a>&nbsp;&nbsp;&nbsp;
-<%	} else { %>
-	<a href="insertBoard.do">글등록</a>&nbsp;&nbsp;&nbsp;
-	<a href="logout.do">로그아웃</a>&nbsp;&nbsp;&nbsp;
-<%	} %>
- --%>	
+
 	
 	</div>
 </body>
