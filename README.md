@@ -1,23 +1,24 @@
-셜록홈즈 부동산 웹페이지 미니프로젝트
+셜록홈즈 부동산 웹페이지 미니프로젝트<br>
+
+구현 영상 주소 : https://www.youtube.com/watch?v=gHg6jgAPIMg&t=2s <br><br><br>
+
+git clone https://github.com/homesminiproject/SherlockHomes <br>
+git init<br>
+git remote add origin https://github.com/homesminiproject/SherlockHomes <br>
+<br>
+
+git add *  <br>
+git commit -m "테스트" <br>
+
+git branch main <br>
+git branch feature1<br>
+git branch feature2<br>
+git branch feature3<br><br><br>
 
 
-git clone https://github.com/homesminiproject/SherlockHomes
-git init
-git remote add origin https://github.com/homesminiproject/SherlockHomes
 
-
-git add *
-git commit -m "테스트"
-
-git branch main
-git branch feature1
-git branch feature2
-git branch feature3
-
-
-
-git push -f origin main // push
+git push -f origin main // push <br>
 git pull --allow-unrelated-histories origin main
-
-git remote -v
+<br><br>
+git remote -v<br>
 git remote rm origin
