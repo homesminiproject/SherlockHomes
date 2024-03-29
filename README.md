@@ -1,6 +1,6 @@
 셜록홈즈 부동산 웹페이지 미니프로젝트<br>
 
-구현 영상 주소 : https://www.youtube.com/watch?v=gHg6jgAPIMg&t=2s <br><br><br>
+구현 영상 주소 : https://www.youtube.com/watch?v=4fGePRgmP64 <br><br><br>
 
 git clone https://github.com/homesminiproject/SherlockHomes <br>
 git init<br>
