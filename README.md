@@ -44,7 +44,8 @@
 ![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/a216c1c8-7227-4d0b-baa9-14cc1b532ab6)
 
 ## 개발 도구
-![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/08aab221-dcce-41fc-a5b1-68daeabfbe66)
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/5e773768-32d1-43e9-a404-81cd0a6b8b13)
+
 
 ## 역할 분담
 ![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/31dcbde0-b157-47d4-b5a9-05fac4b2b5ad)
