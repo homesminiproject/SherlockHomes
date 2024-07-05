@@ -4,30 +4,26 @@
 
 # SherlockHomes(셜록홈즈)
 부동산 웹 프로젝트<br>
-<b>기간 : 2024.04.10 ~ 2018.12.19(10일 간 일 8시간)</b><br>
-<b>환경 : Apache Tomcat 8.0, Chrome 브라우저</b><br>
+<b>기간 : 2024.02.28 ~ 2024.03.29(약 30일 간 하루 평균 1~2시간)</b><br>
 <b>주제 : 부동산 거래 </b><br>
-<b>개발 : Eclipse Photon, Oracle</b><br>
-<b>사용 언어 : JAVA(JDK 1.8), Oracle SQL(11g Express), Html5, CSS3, Javascript, JSP&Servlet</b><br>
-<b>사용 기술 : JDBC, MVC모델2, jQuery, Ajax, Open API(다음카카오,네이버), Mail API, hightchart</b><br>
-<b>디자인 프레임워크 : Material Design Lite</b><br>
+
 
 # 프로젝트 상세내용
 ## 주제 선정 이유
 <pre>
 * 최근 사회적인 전세 사기를 줄이기 위한 프로젝트로
-  전세사기는 국가 및 공인중개사 모두 책임을 지지 않고 있는 현 상황에서 최소한이라도 전세 사기를 조장하는 부동산 업자들ㅇ게
+  전세사기는 국가 및 공인중개사 모두 책임을 지지 않고 있는 현 상황에서 최소한이라도 전세 사기를 조장하는 부동산 업자들에게
 불이익을 주고 임차인을 보호하는 것을 목표로 선정하게 되었습니다.<br>
 </pre>
 
 ## 목적
 <pre>
-1. 매물 열람 시, 다른 매물과 세분화된 매물 비교 불편함<br>
- - 관심목록에 있는 매물끼리 실시간 비교 가능<br>
-2. 관리자만 열람할 수 있는 허위 매물 리스트<br>
- - 신고된 허위매물을 다른 세입자도 열람 가능<br>
-3. 기존 웹에서는 제공하지 않는 계약서 서비스<br>
- - 거래 계약서까지 제공<br>
+전세 사기 방지: 전세 사기를 줄이기 위해 부동산 거래 과정을 투명하게 관리하고, 신뢰할 수 있는 정보 제공을 통해 임차인을 보호하는 것을 목표로 합니다.
+<br>
+부동산 거래의 효율성 향상: 사용자가 손쉽게 부동산 정보를 등록하고 조회할 수 있도록 하여, 부동산 거래의 효율성을 높이고 사용자 경험을 개선합니다.
+<br>
+데이터 기반 의사결정 지원: 부동산 거래 데이터를 시각화하고 분석하여, 사용자에게 유용한 인사이트를 제공하고, 데이터 기반의 의사결정을 지원합니다.
+<br>
 </pre>
 
 ## 요구사항 분석
@@ -38,7 +34,7 @@
 ![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/e8ba4ff8-4c78-4698-a0f8-1df154a9f213)
 
 ## WBS
-![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/ec1fc94c-4d80-4ac1-8da0-a98ed83b1b40)
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/3da5cc32-0dbc-405a-81d0-64fd0a501270)
 
 ## JSP 페이지 설계
 ![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/a216c1c8-7227-4d0b-baa9-14cc1b532ab6)
@@ -48,10 +44,7 @@
 
 
 ## 역할 분담
-![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/31dcbde0-b157-47d4-b5a9-05fac4b2b5ad)
-
-## 구동 화면
-* 로그인 화<br><br>
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/31dcbde0-b157-47d4-b5a9-05fac4면<br><br>
 ![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/d0ab40b4-80b9-419c-b1c9-1f77423d7e3f)
 
 * 메인 화면<br><br>
