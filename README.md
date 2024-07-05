@@ -31,22 +31,37 @@
 </pre>
 
 ## 요구사항 분석
+
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/32c499fa-443d-49e8-9778-12e9309ae1ab)
+
+## ERD 테이블 명세
 ![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/e8ba4ff8-4c78-4698-a0f8-1df154a9f213)
 
-## Exerd 테이블 명세
-![Uploading image.png…]()
+## WBS
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/ec1fc94c-4d80-4ac1-8da0-a98ed83b1b40)
 
+## JSP 페이지 설계
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/a216c1c8-7227-4d0b-baa9-14cc1b532ab6)
+
+## 개발 도구
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/08aab221-dcce-41fc-a5b1-68daeabfbe66)
+
+## 역할 분담
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/31dcbde0-b157-47d4-b5a9-05fac4b2b5ad)
 
 ## 구동 화면
-* 골라방 메인화면<br><br>
-![Alt text](https://github.com/WooSungHwan/GolaBang/blob/master/8.%20%ED%99%94%EB%A9%B4%20%EC%BA%A1%EC%B3%90/01.%EB%A1%9C%EA%B7%B8%EC%9D%B8%2C%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%EB%B0%8F%20%EB%A9%94%EC%9D%B8%EB%A9%94%EB%89%B4/1-1.%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.jpg)
-* 방 검색<br><br>
-![Alt text](https://github.com/WooSungHwan/GolaBang/blob/master/8.%20%ED%99%94%EB%A9%B4%20%EC%BA%A1%EC%B3%90/02.%EB%B0%A9%20%EC%B0%BE%EA%B8%B0/1-2.%EB%B0%A9%20%EA%B2%80%EC%83%89.jpg)
-* 방 비교하기<br><br>
-![Alt text](https://github.com/WooSungHwan/GolaBang/blob/master/8.%20%ED%99%94%EB%A9%B4%20%EC%BA%A1%EC%B3%90/03.%EA%B4%80%EC%8B%AC%EB%AA%A9%EB%A1%9D/3.%EB%B0%A9%20%EB%B9%84%EA%B5%90%ED%95%98%EA%B8%B0.jpg)
+* 로그인 화<br><br>
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/d0ab40b4-80b9-419c-b1c9-1f77423d7e3f)
+
+* 메인 화면<br><br>
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/725f7a6b-849d-4ca6-a097-fd0bb40ae6f5)
+
+
 * 방 등록하기<br><br>
-![Alt text](https://github.com/WooSungHwan/GolaBang/blob/master/8.%20%ED%99%94%EB%A9%B4%20%EC%BA%A1%EC%B3%90/04.%EB%B0%A9%20%EB%82%B4%EB%86%93%EA%B8%B0/1.%EB%B0%A9%20%EB%82%B4%EB%86%93%EA%B8%B0.jpg)
-* 계약서<br><br>
-![Alt text](https://github.com/WooSungHwan/GolaBang/blob/master/8.%20%ED%99%94%EB%A9%B4%20%EC%BA%A1%EC%B3%90/05.%EA%B1%B0%EB%9E%98%20%EA%B4%80%EB%A6%AC/2-3.%EA%B1%B0%EB%9E%98%20%EC%A7%84%ED%96%89%EC%83%81%ED%99%A9(%EA%B3%84%EC%95%BD%EC%84%9C).jpg)
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/61313272-aa2c-417e-85d6-f66a23452504)
+
 * 방 정보 보기<br><br>
-![Alt text](https://github.com/WooSungHwan/GolaBang/blob/master/8.%20%ED%99%94%EB%A9%B4%20%EC%BA%A1%EC%B3%90/06.%EB%A7%A4%EB%AC%BC%20%EC%A0%95%EB%B3%B4/1.%EB%A7%A4%EB%AC%BC%EC%A0%95%EB%B3%B4.jpg)
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/9d4ed592-4616-4c2c-b53f-626126149db1)
+
+![image](https://github.com/homesminiproject/SherlockHomes/assets/78581994/8b9cb614-baa4-4b92-ad1b-f4534d63b6f8)
+
